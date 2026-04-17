@@ -3,1864 +3,572 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PistonesXRacing · Ultra Premium</title>
+  <title>PistonesXRacing</title>
   <style>
-/* =========================================================
-   1. VARIABLES GLOBALES
-========================================================= */
-:root{
-  --bg:#060606;
-  --bg2:#0d0d0d;
-  --panel:#121212;
-  --panel2:#171717;
-  --panel3:#1d1d1d;
-  --line:rgba(255,255,255,.08);
-  --line2:rgba(255,255,255,.14);
-  --text:#ffffff;
-  --muted:#cdcdcd;
-  --muted2:#9e9e9e;
-  --accent:#ff4d13;
-  --accent2:#ff7a2f;
-  --accent3:#ffb26f;
-  --danger:#ff6a6a;
-  --ok:#1edb84;
-  --gold:#ffd166;
-  --shadow:0 30px 100px rgba(0,0,0,.48);
-  --radius:28px;
-  --max:1260px;
-  --headerH:84px;
-}
-
-/* =========================================================
-   2. RESET / BASE
-========================================================= */
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-
-body{
-  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-  color:var(--text);
-  background:
-    radial-gradient(circle at top left, rgba(255,90,20,.16), transparent 24%),
-    radial-gradient(circle at 92% 18%, rgba(255,130,60,.10), transparent 22%),
-    linear-gradient(180deg,#050505 0%, #0a0a0a 24%, #101010 100%);
-  overflow-x:hidden;
-}
-
-img{display:block;max-width:100%}
-a{text-decoration:none;color:inherit}
-
-.wrap{
-  width:min(var(--max),calc(100% - 30px));
-  margin:0 auto;
-}
-
-/* =========================================================
-   3. FONDO DECORATIVO
-========================================================= */
-.noise{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  opacity:.035;
-  z-index:-2;
-  background-image:
-    radial-gradient(circle at 20% 20%, #fff 0 1px, transparent 1px),
-    radial-gradient(circle at 80% 40%, #fff 0 1px, transparent 1px),
-    radial-gradient(circle at 40% 80%, #fff 0 1px, transparent 1px),
-    radial-gradient(circle at 70% 70%, #fff 0 1px, transparent 1px);
-  background-size:170px 170px;
-}
-
-.glow{
-  position:fixed;
-  border-radius:50%;
-  filter:blur(110px);
-  opacity:.18;
-  pointer-events:none;
-  z-index:-1;
-}
-
-.glow.one{
-  width:380px;
-  height:380px;
-  left:-110px;
-  top:-70px;
-  background:#ff5a1f;
-}
-
-.glow.two{
-  width:320px;
-  height:320px;
-  right:-90px;
-  top:18vh;
-  background:#ff2d00;
-}
-
-/* =========================================================
-   4. ANIMACIONES
-========================================================= */
-.reveal{
-  opacity:0;
-  transform:translateY(26px);
-  animation:revealUp .8s ease forwards;
-}
-
-.delay-1{animation-delay:.08s}
-.delay-2{animation-delay:.16s}
-.delay-3{animation-delay:.24s}
-.delay-4{animation-delay:.34s}
-
-@keyframes revealUp{
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-/* =========================================================
-   5. HEADER / NAVEGACIÓN
-========================================================= */
-header{
-  position:fixed;
-  inset:0 0 auto 0;
-  height:var(--headerH);
-  z-index:1000;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:rgba(6,6,6,.76);
-  backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(255,255,255,.06);
-}
-
-.header-inner{
-  width:min(var(--max),calc(100% - 30px));
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:16px;
-}
-
-.logo{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  font-size:22px;
-  font-weight:1000;
-  letter-spacing:-.4px;
-  cursor:pointer;
-  user-select:none;
-  min-width:max-content;
-}
-
-.logo-mark{
-  width:14px;
-  height:14px;
-  border-radius:50%;
-  background:linear-gradient(135deg,var(--accent2),var(--accent));
-  box-shadow:0 0 20px rgba(255,90,20,.35);
-  flex:none;
-}
-
-nav{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  flex-wrap:wrap;
-  justify-content:flex-end;
-}
-
-nav a{
-  padding:12px 16px;
-  border-radius:14px;
-  font-weight:900;
-  font-size:14px;
-  border:1px solid transparent;
-  transition:.2s ease;
-  color:#f1f1f1;
-}
-
-nav a:hover,
-nav a.active{
-  background:rgba(255,255,255,.05);
-  border-color:rgba(255,255,255,.08);
-  color:#fff;
-}
-
-.menu-btn{
-  display:none;
-  border:none;
-  background:#171717;
-  color:#fff;
-  border-radius:14px;
-  padding:10px 12px;
-  font-weight:900;
-  cursor:pointer;
-  border:1px solid rgba(255,255,255,.08);
-}
-
-/* =========================================================
-   6. HERO PRINCIPAL
-========================================================= */
-.hero{
-  min-height:100vh;
-  padding-top:var(--headerH);
-  position:relative;
-  display:flex;
-  align-items:center;
-  overflow:hidden;
-  background:
-    linear-gradient(rgba(0,0,0,.56), rgba(0,0,0,.64)),
-    radial-gradient(circle at 50% 12%, rgba(255,90,20,.25), transparent 34%),
-    url("pistonesxracing.jpg") center center / cover no-repeat;
-}
-
-.hero::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(90deg, rgba(0,0,0,.52) 0%, rgba(0,0,0,.18) 44%, rgba(0,0,0,.52) 100%);
-  pointer-events:none;
-}
-
-.hero::after{
-  content:"";
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:0;
-  height:200px;
-  background:linear-gradient(180deg,transparent,rgba(10,10,10,.97));
-  pointer-events:none;
-}
-
-.hero-grid{
-  width:min(var(--max),calc(100% - 30px));
-  margin:0 auto;
-  display:grid;
-  grid-template-columns:1.1fr .9fr;
-  gap:24px;
-  align-items:start;
-  position:relative;
-  z-index:2;
-}
-
-.eyebrow{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:10px 14px;
-  border-radius:999px;
-  background:rgba(255,90,20,.12);
-  border:1px solid rgba(255,120,60,.20);
-  color:#ffe1d3;
-  font-size:12px;
-  font-weight:1000;
-  letter-spacing:1.3px;
-  text-transform:uppercase;
-  margin-bottom:18px;
-}
-
-.hero h1{
-  font-family:Impact, Haettenschweiler, "Arial Black", sans-serif;
-  font-size:clamp(72px,10vw,148px);
-  line-height:.82;
-  letter-spacing:-2px;
-  text-transform:uppercase;
-  text-shadow:
-    0 0 18px rgba(255,90,20,.30),
-    0 0 48px rgba(255,90,20,.16);
-}
-
-.hero-lead{
-  margin-top:18px;
-  max-width:760px;
-  color:#ececec;
-  font-size:18px;
-  line-height:1.82;
-}
-
-.hero-badges{
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-  margin-top:24px;
-}
-
-.hero-badge{
-  padding:12px 14px;
-  border-radius:999px;
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.08);
-  color:#fff;
-  font-weight:900;
-  font-size:14px;
-}
-
-.hero-actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-  margin-top:26px;
-}
-
-.hero-side{
-  display:grid;
-  gap:16px;
-}
-
-.hero-extra-info{
-  margin-top:22px;
-  display:grid;
-  gap:14px;
-  max-width:760px;
-}
-
-.hero-poster-card{
-  position:relative;
-  overflow:hidden;
-  min-height:520px;
-  border-radius:32px;
-  border:1px solid rgba(255,255,255,.10);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015)),
-    rgba(15,15,15,.88);
-  box-shadow:0 24px 70px rgba(0,0,0,.34);
-}
-
-.hero-poster-card::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(180deg, rgba(0,0,0,.04), rgba(0,0,0,.18));
-  pointer-events:none;
-}
-
-.hero-poster-img{
-  width:100%;
-  height:100%;
-  min-height:520px;
-  object-fit:cover;
-  display:block;
-}
-
-.hero-poster-badge{
-  position:absolute;
-  left:18px;
-  top:18px;
-  z-index:2;
-  padding:10px 14px;
-  border-radius:999px;
-  background:rgba(0,0,0,.52);
-  border:1px solid rgba(255,255,255,.12);
-  color:#fff;
-  font-size:12px;
-  font-weight:1000;
-  letter-spacing:1px;
-  text-transform:uppercase;
-  backdrop-filter:blur(10px);
-}
-
-.hero-poster-caption{
-  position:absolute;
-  left:18px;
-  right:18px;
-  bottom:18px;
-  z-index:2;
-  padding:18px;
-  border-radius:22px;
-  background:rgba(0,0,0,.46);
-  border:1px solid rgba(255,255,255,.10);
-  backdrop-filter:blur(12px);
-}
-
-.hero-poster-caption strong{
-  display:block;
-  font-size:18px;
-  margin-bottom:6px;
-}
-
-.hero-poster-caption span{
-  color:#e7e7e7;
-  line-height:1.65;
-  font-size:14px;
-}
-
-/* =========================================================
-   7. BOTONES
-========================================================= */
-.btn,
-.btn-ghost,
-.btn-dark,
-.insta-btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  min-width:190px;
-  padding:15px 20px;
-  border-radius:18px;
-  border:none;
-  font-weight:1000;
-  cursor:pointer;
-  transition:.22s ease;
-}
-
-.btn{
-  color:#fff;
-  background:linear-gradient(135deg,var(--accent2),var(--accent));
-  box-shadow:0 18px 34px rgba(255,90,20,.24);
-}
-
-.btn-ghost{
-  color:#fff;
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.09);
-}
-
-.btn-dark{
-  color:#fff;
-  background:#171717;
-  border:1px solid rgba(255,255,255,.08);
-}
-
-.insta-btn{
-  margin-top:22px;
-  color:#fff;
-  background:linear-gradient(135deg,#ff7a18,#ff416c 50%,#7d4dff);
-  box-shadow:0 18px 36px rgba(255,80,120,.20);
-  min-width:220px;
-}
-
-.btn:hover,
-.btn-ghost:hover,
-.btn-dark:hover,
-.insta-btn:hover{
-  transform:translateY(-2px);
-}
-
-/* =========================================================
-   8. TARJETAS GENERALES
-========================================================= */
-.count-card,
-.info-card,
-.alert-card,
-.main-card,
-.ticket-box,
-.feature-card,
-.gallery-card,
-.map-card,
-.food-card,
-.rules-card,
-.dj-card,
-.side-box,
-.panel,
-.instagram-shell{
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015)),
-    var(--panel);
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:var(--radius);
-  box-shadow:0 16px 40px rgba(0,0,0,.24);
-}
-
-/* =========================================================
-   9. CARDS DEL HERO
-========================================================= */
-.count-card{
-  padding:26px;
-  position:relative;
-  overflow:hidden;
-  background:
-    linear-gradient(135deg, rgba(255,120,60,.13), rgba(255,255,255,.02)),
-    rgba(12,12,12,.84);
-  backdrop-filter:blur(14px);
-  box-shadow:var(--shadow);
-}
-
-.count-card::before{
-  content:"";
-  position:absolute;
-  inset:auto -40px -60px auto;
-  width:180px;
-  height:180px;
-  border-radius:50%;
-  background:radial-gradient(circle, rgba(255,90,20,.22), transparent 70%);
-  pointer-events:none;
-}
-
-.count-label{
-  font-size:12px;
-  text-transform:uppercase;
-  letter-spacing:1.2px;
-  color:#d2d2d2;
-  font-weight:1000;
-  margin-bottom:8px;
-}
-
-.countdown{
-  font-size:clamp(42px,4vw,62px);
-  line-height:1;
-  font-weight:1000;
-  color:var(--accent3);
-  text-shadow:0 0 24px rgba(255,90,20,.18);
-}
-
-.count-sub{
-  margin-top:12px;
-  color:#dfdfdf;
-  line-height:1.7;
-  font-size:14px;
-}
-
-.hero-info-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
-}
-
-.info-card{
-  padding:18px;
-}
-
-.info-card small{
-  display:block;
-  color:#bdbdbd;
-  text-transform:uppercase;
-  font-weight:900;
-  letter-spacing:.7px;
-  margin-bottom:6px;
-  font-size:12px;
-}
-
-.info-card strong{
-  display:block;
-  font-size:16px;
-  line-height:1.45;
-}
-
-.alert-card{
-  padding:18px;
-  background:
-    linear-gradient(180deg, rgba(255,107,107,.10), rgba(255,255,255,.01)),
-    #141414;
-  border:1px solid rgba(255,107,107,.18);
-  color:#ffe4e4;
-  line-height:1.7;
-  font-weight:900;
-}
-
-/* =========================================================
-   10. STATS
-========================================================= */
-.stats{
-  margin-top:-40px;
-  position:relative;
-  z-index:5;
-}
-
-.stats-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:16px;
-}
-
-.stat{
-  padding:22px;
-  border-radius:22px;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015)),
-    rgba(18,18,18,.96);
-  border:1px solid rgba(255,255,255,.07);
-  box-shadow:0 14px 40px rgba(0,0,0,.22);
-}
-
-.stat strong{
-  display:block;
-  font-size:30px;
-  letter-spacing:-.8px;
-  margin-bottom:6px;
-}
-
-.stat span{
-  display:block;
-  color:#dadada;
-  line-height:1.7;
-  font-size:14px;
-}
-
-/* =========================================================
-   11. SECCIONES GENERALES
-========================================================= */
-section{
-  padding:110px 0;
-  position:relative;
-}
-
-.section-top{
-  text-align:center;
-  margin-bottom:30px;
-}
-
-.section-top h2{
-  font-size:clamp(34px,4vw,54px);
-  line-height:1;
-  letter-spacing:-1.4px;
-  margin-bottom:12px;
-  text-transform:uppercase;
-}
-
-.sub{
-  max-width:920px;
-  margin:0 auto;
-  color:var(--muted);
-  line-height:1.82;
-  font-size:16px;
-}
-
-.section-kicker{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:10px 14px;
-  border-radius:999px;
-  background:rgba(255,255,255,.07);
-  border:1px solid rgba(255,255,255,.10);
-  font-size:12px;
-  font-weight:1000;
-  letter-spacing:1px;
-  text-transform:uppercase;
-  margin-bottom:14px;
-}
-
-/* =========================================================
-   12. MAIN CARD / BLOQUE PRINCIPAL
-========================================================= */
-.main-card{
-  overflow:hidden;
-  background:
-    linear-gradient(135deg, rgba(255,100,40,.10), rgba(255,255,255,.02)),
-    #141414;
-  box-shadow:var(--shadow);
-}
-
-.main-card-grid{
-  display:grid;
-  grid-template-columns:1.04fr .96fr;
-  align-items:stretch;
-}
-
-.main-copy{
-  padding:34px;
-}
-
-.main-copy h3{
-  font-size:clamp(32px,3.5vw,52px);
-  line-height:1;
-  letter-spacing:-1px;
-  margin-bottom:14px;
-  text-transform:uppercase;
-}
-
-.main-copy p{
-  color:#ececec;
-  line-height:1.85;
-  font-size:16px;
-  margin-bottom:12px;
-  max-width:680px;
-}
-
-.highlights{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin-top:20px;
-}
-
-.highlight{
-  padding:15px;
-  border-radius:18px;
-  background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.08);
-  color:#f0f0f0;
-  font-weight:800;
-  line-height:1.6;
-}
-
-.main-visual{
-  padding:34px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:28px;
-  background:
-    radial-gradient(circle at center, rgba(255,120,60,.18), transparent 42%),
-    linear-gradient(rgba(0,0,0,.08), rgba(0,0,0,.26));
-}
-
-.visual-ring{
-  width:min(300px,100%);
-  aspect-ratio:1/1;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border:1px solid rgba(255,255,255,.10);
-  background:
-    radial-gradient(circle at center, rgba(255,120,60,.28), rgba(255,120,60,.08) 42%, transparent 74%);
-  box-shadow:0 0 60px rgba(255,90,20,.12);
-}
-
-.visual-ring-inner{
-  width:76%;
-  aspect-ratio:1/1;
-  border-radius:50%;
-  border:1px solid rgba(255,255,255,.10);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:20px;
-  background:rgba(255,255,255,.04);
-  font-size:clamp(20px,2.4vw,30px);
-  line-height:1.08;
-  font-weight:1000;
-  text-transform:uppercase;
-}
-
-.artists-btn{
-  padding:18px 28px;
-  border-radius:18px;
-  font-weight:1000;
-  background:linear-gradient(135deg,var(--accent2),var(--accent));
-  border:none;
-  color:#fff;
-  cursor:pointer;
-  font-size:17px;
-  box-shadow:0 14px 34px rgba(255,90,20,.22);
-  transition:.22s ease;
-}
-
-.artists-btn:hover{
-  transform:translateY(-2px);
-}
-
-/* =========================================================
-   13. BLOQUE DJ
-========================================================= */
-.dj-card{
-  margin-top:24px;
-  padding:24px;
-  display:grid;
-  grid-template-columns:360px 1fr;
-  gap:24px;
-  align-items:center;
-  overflow:hidden;
-  background:
-    linear-gradient(135deg, rgba(255,90,20,.08), rgba(255,255,255,.02)),
-    #141414;
-}
-
-.dj-image{
-  border-radius:24px;
-  overflow:hidden;
-  min-height:420px;
-  background:#101010;
-  border:1px solid rgba(255,255,255,.08);
-}
-
-.dj-image img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center center;
-}
-
-.dj-copy h3{
-  font-size:clamp(36px,4vw,58px);
-  letter-spacing:-1px;
-  line-height:1;
-  margin-bottom:12px;
-  text-transform:uppercase;
-}
-
-.dj-copy p{
-  color:#e8e8e8;
-  line-height:1.85;
-  font-size:16px;
-  margin-bottom:12px;
-  max-width:760px;
-}
-
-.dj-tags{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin:18px 0 20px;
-}
-
-.dj-tag{
-  padding:10px 14px;
-  border-radius:999px;
-  background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.08);
-  font-weight:900;
-  color:#fff;
-  font-size:14px;
-}
-
-/* =========================================================
-   14. RULES + FOOD
-========================================================= */
-.strip-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:18px;
-  margin-top:30px;
-}
-
-.rules-card,
-.food-card{
-  padding:28px;
-  overflow:hidden;
-  position:relative;
-}
-
-.rules-card{
-  background:
-    linear-gradient(135deg, rgba(255,90,90,.10), rgba(255,255,255,.015)),
-    #141414;
-  border-color:rgba(255,110,110,.16);
-}
-
-.food-card{
-  background:
-    linear-gradient(135deg, rgba(255,170,80,.10), rgba(255,255,255,.015)),
-    #141414;
-  border-color:rgba(255,190,110,.16);
-}
-
-.rules-card h3,
-.food-card h3{
-  font-size:28px;
-  margin-bottom:12px;
-  text-transform:uppercase;
-  letter-spacing:-.8px;
-}
-
-.rules-card p,
-.food-card p{
-  color:#e5e5e5;
-  line-height:1.85;
-  margin-bottom:12px;
-}
-
-.mini-list{
-  display:grid;
-  gap:10px;
-  margin-top:12px;
-}
-
-.mini-list div{
-  padding:14px 16px;
-  border-radius:16px;
-  background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.08);
-  font-weight:800;
-  color:#fff;
-  line-height:1.6;
-}
-
-/* =========================================================
-   15. FEATURES
-========================================================= */
-.feature-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
-  margin-top:30px;
-}
-
-.feature-card{
-  padding:24px;
-  border-radius:24px;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.014)),
-    var(--panel2);
-  transition:.22s ease;
-}
-
-.feature-card:hover{
-  transform:translateY(-5px);
-  border-color:rgba(255,255,255,.12);
-}
-
-.feature-card h3{
-  font-size:21px;
-  margin-bottom:10px;
-}
-
-.feature-card p{
-  color:#ddd;
-  line-height:1.82;
-}
-
-/* =========================================================
-   16. GALERÍA
-========================================================= */
-.gallery-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:20px;
-  margin-top:38px;
-}
-
-.gallery-card{
-  overflow:hidden;
-  border-radius:26px;
-  transition:.22s ease;
-}
-
-.gallery-card:hover{
-  transform:translateY(-5px);
-}
-
-.gallery-image{
-  aspect-ratio:16/10;
-  overflow:hidden;
-  background:#111;
-}
-
-.gallery-image img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  transition:transform .38s ease;
-}
-
-.gallery-card:hover .gallery-image img{
-  transform:scale(1.05);
-}
-
-.gallery-copy{
-  padding:22px;
-}
-
-.gallery-copy h3{
-  font-size:22px;
-  margin-bottom:10px;
-}
-
-.gallery-copy p{
-  color:#ddd;
-  line-height:1.8;
-}
-
-/* =========================================================
-   17. PROMO STRIP
-========================================================= */
-.promo-strip{
-  margin-top:36px;
-  display:grid;
-  grid-template-columns:140px 1fr 140px;
-  gap:24px;
-  align-items:center;
-  padding:22px;
-  border-radius:26px;
-  background:
-    linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.012)),
-    #141414;
-  border:1px solid rgba(255,255,255,.07);
-  box-shadow:0 10px 30px rgba(0,0,0,.18);
-}
-
-.promo-thumb{
-  width:140px;
-  height:140px;
-  border-radius:18px;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,.07);
-  margin:auto;
-}
-
-.promo-thumb img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  transition:transform .35s ease;
-}
-
-.promo-thumb:hover img{
-  transform:scale(1.06);
-}
-
-.promo-text{
-  text-align:center;
-}
-
-.promo-text h3{
-  font-size:26px;
-  margin-bottom:10px;
-  letter-spacing:-.5px;
-  text-transform:uppercase;
-}
-
-.promo-text p{
-  color:#d0d0d0;
-  line-height:1.75;
-  font-size:16px;
-  max-width:420px;
-  margin:auto;
-}
-
-/* =========================================================
-   18. UBICACIÓN / MAPA
-========================================================= */
-.map-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:18px;
-  margin-top:28px;
-  align-items:stretch;
-}
-
-.map-card{
-  padding:28px;
-  overflow:hidden;
-  min-height:420px;
-}
-
-.map-card h3{
-  font-size:30px;
-  letter-spacing:-.7px;
-  margin-bottom:12px;
-  text-transform:uppercase;
-}
-
-.map-card p{
-  color:#ddd;
-  line-height:1.9;
-  margin-bottom:10px;
-}
-
-.map-embed{
-  width:100%;
-  min-height:420px;
-  max-height:420px;
-  overflow:hidden;
-  border-radius:28px;
-  border:1px solid rgba(255,255,255,.08);
-  background:#111;
-  box-shadow:0 14px 40px rgba(0,0,0,.22);
-}
-
-.map-embed iframe{
-  width:100%;
-  height:420px;
-  min-height:420px;
-  border:0;
-  display:block;
-}
-
-/* =========================================================
-   19. ENTRADAS / TICKETS
-========================================================= */
-.ticket-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
-  margin-top:20px;
-  align-items:stretch;
-}
-
-.ticket-box{
-  padding:26px;
-  display:flex;
-  flex-direction:column;
-  gap:16px;
-  position:relative;
-  overflow:hidden;
-  transition:.22s ease;
-}
-
-.ticket-box:hover{
-  transform:translateY(-5px);
-}
-
-.ticket-box::before{
-  content:"";
-  position:absolute;
-  inset:0 auto 0 0;
-  width:5px;
-  background:linear-gradient(180deg,var(--accent2),transparent 80%);
-}
-
-.ticket-tag{
-  display:inline-flex;
-  width:max-content;
-  padding:8px 12px;
-  border-radius:999px;
-  font-size:12px;
-  font-weight:1000;
-  text-transform:uppercase;
-  letter-spacing:.9px;
-  background:rgba(255,90,20,.12);
-  border:1px solid rgba(255,90,20,.20);
-  color:#ffd9cb;
-}
-
-.vip-box{
-  background:
-    linear-gradient(180deg, rgba(255,180,90,.08), rgba(255,255,255,.012)),
-    #151515;
-  border-color:rgba(255,190,110,.16);
-}
-
-.ticket-box h3{
-  font-size:24px;
-}
-
-.ticket-price{
-  font-size:42px;
-  font-weight:1000;
-  letter-spacing:-1px;
-}
-
-.ticket-price span{
-  font-size:16px;
-  color:#c7c7c7;
-  font-weight:800;
-  margin-left:4px;
-}
-
-.ticket-list{
-  display:grid;
-  gap:10px;
-  color:#ddd;
-  line-height:1.7;
-}
-
-.ticket-list div{
-  position:relative;
-  padding-left:22px;
-}
-
-.ticket-list div::before{
-  content:"✓";
-  position:absolute;
-  left:0;
-  color:var(--ok);
-  font-weight:1000;
-}
-
-/* =========================================================
-   20. BLOQUE COMPRA / FORMULARIO
-========================================================= */
-.buy-grid{
-  display:grid;
-  grid-template-columns:1.05fr .95fr;
-  gap:18px;
-  margin-top:18px;
-  align-items:start;
-}
-
-.panel{
-  padding:28px;
-}
-
-.form-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
-}
-
-.full{
-  grid-column:1 / -1;
-}
-
-label{
-  display:block;
-  margin-bottom:8px;
-  font-size:14px;
-  color:#e2e2e2;
-  font-weight:900;
-}
-
-input,
-select{
-  width:100%;
-  padding:15px 16px;
-  border-radius:16px;
-  border:1px solid rgba(255,255,255,.10);
-  background:#101010;
-  color:#fff;
-  font-size:15px;
-  outline:none;
-  transition:.2s ease;
-}
-
-input:focus,
-select:focus{
-  border-color:rgba(255,110,50,.42);
-  box-shadow:0 0 0 4px rgba(255,90,20,.08);
-}
-
-.inline-note{
-  margin-top:9px;
-  padding:14px 15px;
-  border-radius:16px;
-  background:rgba(255,255,255,.045);
-  border:1px solid rgba(255,255,255,.07);
-  color:#ddd;
-  line-height:1.65;
-  font-size:14px;
-}
-
-/* =========================================================
-   21. RESUMEN LATERAL
-========================================================= */
-.summary-sticky{
-  position:sticky;
-  top:100px;
-  display:grid;
-  gap:16px;
-}
-
-.side-box{
-  padding:26px;
-}
-
-.side-box h3{
-  font-size:24px;
-  margin-bottom:10px;
-  letter-spacing:-.5px;
-  text-transform:uppercase;
-}
-
-.summary-box{
-  margin-top:14px;
-  padding:16px;
-  border-radius:18px;
-  background:rgba(255,255,255,.045);
-  border:1px solid rgba(255,255,255,.07);
-  color:#e1e1e1;
-  line-height:1.8;
-}
-
-.msg{
-  display:none;
-  margin-top:12px;
-  padding:14px 15px;
-  border-radius:16px;
-  font-weight:800;
-  line-height:1.5;
-}
-
-.msg.ok{
-  display:block;
-  background:rgba(30,219,132,.12);
-  border:1px solid rgba(30,219,132,.22);
-  color:#c9f5de;
-}
-
-.msg.err{
-  display:block;
-  background:rgba(255,92,92,.12);
-  border:1px solid rgba(255,92,92,.22);
-  color:#ffd9d9;
-}
-
-/* =========================================================
-   22. INSTAGRAM
-========================================================= */
-.instagram-shell{
-  overflow:hidden;
-  background:
-    linear-gradient(135deg, rgba(255,110,60,.15), rgba(255,40,130,.10) 45%, rgba(140,60,255,.10)),
-    #141414;
-  box-shadow:var(--shadow);
-}
-
-.instagram-grid{
-  display:grid;
-  grid-template-columns:1.05fr .95fr;
-  gap:0;
-  align-items:stretch;
-}
-
-.instagram-copy{
-  padding:36px;
-}
-
-.instagram-kicker{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:10px 14px;
-  border-radius:999px;
-  background:rgba(255,255,255,.08);
-  border:1px solid rgba(255,255,255,.12);
-  color:#fff;
-  font-size:12px;
-  font-weight:1000;
-  text-transform:uppercase;
-  letter-spacing:1px;
-  margin-bottom:14px;
-}
-
-.instagram-copy h3{
-  font-size:clamp(34px,4vw,58px);
-  line-height:.95;
-  margin-bottom:14px;
-  letter-spacing:-1px;
-  text-transform:uppercase;
-}
-
-.instagram-copy p{
-  color:#f0f0f0;
-  line-height:1.88;
-  font-size:17px;
-  max-width:620px;
-}
-
-.instagram-points{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin-top:22px;
-}
-
-.instagram-point{
-  padding:15px;
-  border-radius:18px;
-  background:rgba(255,255,255,.07);
-  border:1px solid rgba(255,255,255,.10);
-  color:#fff;
-  font-weight:800;
-  line-height:1.55;
-}
-
-.instagram-visual{
-  padding:30px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:
-    radial-gradient(circle at center, rgba(255,255,255,.10), transparent 42%),
-    linear-gradient(rgba(0,0,0,.08), rgba(0,0,0,.24));
-}
-
-.phone{
-  width:min(340px,100%);
-  border-radius:36px;
-  padding:14px;
-  background:linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.04));
-  border:1px solid rgba(255,255,255,.14);
-  box-shadow:0 20px 54px rgba(0,0,0,.30);
-  backdrop-filter:blur(10px);
-}
-
-.phone-screen{
-  border-radius:28px;
-  overflow:hidden;
-  background:#111;
-  border:1px solid rgba(255,255,255,.08);
-}
-
-.insta-topbar{
-  padding:14px 16px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  background:linear-gradient(90deg,#ff6a2f,#ff3d77,#8f4dff);
-  color:#fff;
-  font-weight:1000;
-  font-size:14px;
-}
-
-.insta-post{
-  padding:16px;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,.01)),
-    #151515;
-}
-
-.insta-profile{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin-bottom:14px;
-}
-
-.insta-avatar{
-  width:44px;
-  height:44px;
-  border-radius:50%;
-  background:linear-gradient(135deg,#ff9a44,#ff4d13,#ff2d75,#7d4dff);
-  padding:2px;
-  flex:none;
-}
-
-.insta-avatar::before{
-  content:"";
-  display:block;
-  width:100%;
-  height:100%;
-  border-radius:50%;
-  background:#101010;
-}
-
-.insta-user strong{
-  display:block;
-  font-size:14px;
-}
-
-.insta-user span{
-  color:#cfcfcf;
-  font-size:12px;
-}
-
-.insta-media{
-  height:270px;
-  border-radius:22px;
-  background:
-    linear-gradient(rgba(0,0,0,.18), rgba(0,0,0,.18)),
-    url("pistonesxracing.jpg") center center / cover no-repeat;
-  border:1px solid rgba(255,255,255,.08);
-  position:relative;
-  overflow:hidden;
-}
-
-.insta-media::after{
-  content:"PISTONES XRACING";
-  position:absolute;
-  left:16px;
-  bottom:16px;
-  padding:10px 14px;
-  border-radius:999px;
-  font-size:12px;
-  font-weight:1000;
-  letter-spacing:1px;
-  background:rgba(0,0,0,.48);
-  border:1px solid rgba(255,255,255,.10);
-  color:#fff;
-}
-
-.insta-actions{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-top:14px;
-  color:#f1f1f1;
-  font-size:14px;
-  font-weight:900;
-}
-
-.insta-caption{
-  margin-top:12px;
-  color:#dfdfdf;
-  line-height:1.75;
-  font-size:14px;
-}
-
-.insta-caption strong{
-  color:#fff;
-}
-
-/* =========================================================
-   23. IMÁGENES AMPLIABLES / LIGHTBOX
-========================================================= */
-.zoomable{
-  cursor:zoom-in;
-}
-
-.lightbox{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.84);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:24px;
-  z-index:3000;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .22s ease;
-}
-
-.lightbox.open{
-  opacity:1;
-  pointer-events:auto;
-}
-
-.lightbox img{
-  max-width:min(1100px,92vw);
-  max-height:88vh;
-  border-radius:24px;
-  border:1px solid rgba(255,255,255,.10);
-  box-shadow:0 25px 80px rgba(0,0,0,.45);
-}
-
-.lightbox-close{
-  position:absolute;
-  top:18px;
-  right:18px;
-  width:46px;
-  height:46px;
-  border:none;
-  border-radius:50%;
-  background:rgba(255,255,255,.10);
-  color:#fff;
-  font-size:24px;
-  font-weight:1000;
-  cursor:pointer;
-  border:1px solid rgba(255,255,255,.12);
-}
-
-/* =========================================================
-   24. PANTALLA DE PAGO
-========================================================= */
-.pay-screen{
-  display:none;
-  min-height:100vh;
-  padding-top:calc(var(--headerH) + 26px);
-  padding-bottom:70px;
-}
-
-.pay-screen.active{
-  display:block;
-}
-
-.pay-wrap{
-  width:min(760px,calc(100% - 30px));
-  margin:0 auto;
-}
-
-.pay-head{
-  text-align:center;
-  margin-bottom:22px;
-}
-
-.pay-head h2{
-  font-size:42px;
-  margin-bottom:10px;
-  letter-spacing:-1px;
-  text-transform:uppercase;
-}
-
-.pay-head p{
-  color:#d0d0d0;
-  line-height:1.75;
-}
-
-.pay-card{
-  padding:28px;
-  border-radius:28px;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)),
-    #151515;
-  border:1px solid rgba(255,255,255,.08);
-  box-shadow:var(--shadow);
-}
-
-.pay-card h3{
-  font-size:24px;
-  margin-bottom:12px;
-}
-
-.bizum-box{
-  margin-top:14px;
-  padding:18px;
-  border-radius:20px;
-  background:rgba(255,255,255,.045);
-  border:1px solid rgba(255,255,255,.08);
-  text-align:center;
-}
-
-.bizum-number{
-  font-size:clamp(28px,5vw,42px);
-  font-weight:1000;
-  margin:10px 0 12px;
-  letter-spacing:1px;
-}
-
-.btn-row{
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-  margin-top:18px;
-}
-
-/* =========================================================
-   25. FOOTER + BOTÓN FLOTANTE
-========================================================= */
-.footer{
-  padding:34px 0 42px;
-  text-align:center;
-  color:#b7b7b7;
-  border-top:1px solid rgba(255,255,255,.06);
-  background:#101010;
-  margin-top:24px;
-}
-
-.floating-buy{
-  position:fixed;
-  right:18px;
-  bottom:18px;
-  z-index:1100;
-  display:flex;
-}
-
-.floating-buy a{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  padding:15px 18px;
-  border-radius:999px;
-  font-weight:1000;
-  color:#fff;
-  background:linear-gradient(135deg,var(--accent2),var(--accent));
-  box-shadow:0 18px 34px rgba(255,90,20,.28);
-}
-
-.hidden{
-  display:none !important;
-}
-
-/* =========================================================
-   26. MODAL DE ARTISTAS
-========================================================= */
-.artists-modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.78);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:4000;
-  opacity:0;
-  pointer-events:none;
-  transition:.28s ease;
-  padding:20px;
-}
-
-.artists-modal.open{
-  opacity:1;
-  pointer-events:auto;
-}
-
-.artists-box{
-  width:min(1080px,92%);
-  background:#141414;
-  border-radius:28px;
-  padding:38px;
-  border:1px solid rgba(255,255,255,.08);
-  box-shadow:0 30px 80px rgba(0,0,0,.6);
-  position:relative;
-  transform:scale(.94);
-  opacity:0;
-  transition:.30s ease;
-  max-height:90vh;
-  overflow:auto;
-}
-
-.artists-modal.open .artists-box{
-  transform:scale(1);
-  opacity:1;
-}
-
-.artists-box h2{
-  text-align:center;
-  margin-bottom:30px;
-  font-size:34px;
-  letter-spacing:-.8px;
-  text-transform:uppercase;
-}
-
-.artists-close{
-  position:absolute;
-  top:20px;
-  right:20px;
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  border:none;
-  font-size:22px;
-  background:#222;
-  color:#fff;
-  cursor:pointer;
-}
-
-/* =========================================================
-   27. AJUSTES DE IMÁGENES DE ARTISTAS
-========================================================= */
-.artist-siriako{object-position:center 10%}
-.artist-mega{object-position:center 10%}
-.artist-panadomi{object-position:center 10%}
-.artist-davidvmr{object-position:center 45%}
-.artist-kifero{object-position:center center}
-
-/* =========================================================
-   28. RESPONSIVE - TABLET GRANDE
-========================================================= */
-@media (max-width:1080px){
-  .hero-grid,
-  .main-card-grid,
-  .buy-grid,
-  .instagram-grid,
-  .map-grid,
-  .dj-card,
-  .strip-grid{
-    grid-template-columns:1fr;
-  }
-
-  .stats-grid,
-  .ticket-grid,
-  .feature-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .hero-poster-card,
-  .hero-poster-img{
-    min-height:420px;
-  }
-}
-
-/* =========================================================
-   29. RESPONSIVE - TABLET / MÓVIL
-========================================================= */
-@media (max-width:900px){
-  .map-grid{
-    grid-template-columns:1fr;
-  }
-
-  .map-card,
-  .map-embed,
-  .map-embed iframe{
-    min-height:320px;
-  }
-
-  .map-embed{
-    max-height:320px;
-  }
-
-  .map-embed iframe{
-    height:320px;
-  }
-}
-
-@media (max-width:820px){
-  .menu-btn{
-    display:inline-flex;
-  }
-
-  nav{
-    position:absolute;
-    top:calc(100% + 10px);
-    left:15px;
-    right:15px;
-    display:none;
-    flex-direction:column;
-    align-items:stretch;
-    padding:14px;
-    border-radius:20px;
-    background:rgba(14,14,14,.98);
-    border:1px solid rgba(255,255,255,.08);
-    box-shadow:var(--shadow);
-  }
-
-  nav.open{
-    display:flex;
-  }
-
-  nav a{
-    text-align:center;
-  }
-
-  .hero{
-    min-height:auto;
-    padding-bottom:76px;
-  }
-
-  .hero-info-grid,
-  .highlights,
-  .gallery-grid,
-  .form-grid,
-  .stats-grid,
-  .ticket-grid,
-  .feature-grid,
-  .instagram-points{
-    grid-template-columns:1fr;
-  }
-
-  .summary-sticky{
-    position:static;
-  }
-}
-
-@media (max-width:560px){
-  .wrap,
-  .header-inner,
-  .hero-grid,
-  .pay-wrap{
-    width:min(var(--max),calc(100% - 22px));
-  }
-
-  .count-card,
-  .info-card,
-  .alert-card,
-  .main-copy,
-  .main-visual,
-  .instagram-copy,
-  .instagram-visual,
-  .map-card,
-  .panel,
-  .side-box,
-  .pay-card,
-  .ticket-box,
-  .dj-card,
-  .artists-box,
-  .rules-card,
-  .food-card{
-    padding:20px;
-  }
-
-  .promo-strip{
-    grid-template-columns:1fr;
-  }
-
-  .floating-buy{
-    left:12px;
-    right:12px;
-    bottom:12px;
-  }
-
-  .floating-buy a{
-    width:100%;
-  }
-
-  .insta-media{
-    height:220px;
-  }
-
-  .dj-image{
-    min-height:320px;
-  }
-
-  .hero-poster-card,
-  .hero-poster-img{
-    min-height:340px;
-  }
-}
-</style>
+    :root{
+      --bg:#050505;
+      --bg2:#0f0f0f;
+      --panel:#141414;
+      --panel2:#1b1b1b;
+      --line:rgba(255,255,255,.08);
+      --text:#fff;
+      --muted:#d0d0d0;
+      --muted2:#a8a8a8;
+      --accent:#ff5a1f;
+      --accent2:#ff7a2f;
+      --accentSoft:rgba(255,90,31,.14);
+      --ok:#18d673;
+      --warn:#ffd166;
+      --danger:#ff7c7c;
+      --radius:26px;
+      --shadow:0 24px 80px rgba(0,0,0,.42);
+      --max:1260px;
+      --headerH:82px;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(255,90,31,.15), transparent 26%),
+        radial-gradient(circle at 90% 18%, rgba(255,90,31,.10), transparent 24%),
+        linear-gradient(180deg,#050505 0%, #0b0b0b 24%, #101010 100%);
+      overflow-x:hidden;
+    }
+    img{display:block;max-width:100%}
+    a{text-decoration:none;color:inherit}
+    button,input,select{font:inherit}
+    .wrap{width:min(var(--max),calc(100% - 30px));margin:0 auto}
+
+    .noise{position:fixed;inset:0;pointer-events:none;opacity:.03;z-index:-2;background-image:
+      radial-gradient(circle at 20% 20%, #fff 0 1px, transparent 1px),
+      radial-gradient(circle at 80% 40%, #fff 0 1px, transparent 1px),
+      radial-gradient(circle at 40% 80%, #fff 0 1px, transparent 1px),
+      radial-gradient(circle at 70% 70%, #fff 0 1px, transparent 1px);background-size:170px 170px}
+    .glow{position:fixed;border-radius:50%;filter:blur(110px);opacity:.16;pointer-events:none;z-index:-1}
+    .glow.one{width:380px;height:380px;left:-100px;top:-80px;background:#ff5a1f}
+    .glow.two{width:330px;height:330px;right:-90px;top:18vh;background:#ff2d00}
+
+    header{position:fixed;inset:0 0 auto 0;height:var(--headerH);z-index:1000;display:flex;align-items:center;justify-content:center;background:rgba(5,5,5,.86);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.06)}
+    .header-inner{width:min(var(--max),calc(100% - 30px));display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .logo{display:flex;align-items:center;gap:12px;font-size:22px;font-weight:1000;letter-spacing:-.4px;cursor:pointer;user-select:none;min-width:max-content}
+    .logo-mark{width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,var(--accent2),var(--accent));box-shadow:0 0 18px rgba(255,90,31,.35);flex:none}
+    nav{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    nav a{padding:12px 16px;border-radius:14px;font-weight:900;font-size:14px;border:1px solid transparent;transition:.2s ease;color:#f3f3f3}
+    nav a:hover,nav a.active{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.08)}
+    .menu-btn{display:none;border:none;background:#171717;color:#fff;border-radius:14px;padding:10px 12px;font-weight:900;cursor:pointer;border:1px solid rgba(255,255,255,.08)}
+
+    .hero{min-height:100vh;padding-top:var(--headerH);position:relative;display:flex;align-items:center;overflow:hidden;background:linear-gradient(rgba(0,0,0,.58), rgba(0,0,0,.74)),radial-gradient(circle at 50% 12%, rgba(255,90,31,.22), transparent 34%),url("pistonesxracing.jpg") center center / cover no-repeat}
+    .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:220px;background:linear-gradient(180deg,transparent,rgba(10,10,10,.98));pointer-events:none}
+    .hero-grid{width:min(var(--max),calc(100% - 30px));margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:start;position:relative;z-index:1}
+    .eyebrow,.pill,.section-kicker{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;background:var(--accentSoft);border:1px solid rgba(255,122,47,.20);color:#ffe3d6;font-size:12px;font-weight:1000;letter-spacing:1.2px;text-transform:uppercase}
+    .eyebrow{margin-bottom:18px}
+    h1,.section-top h2,.event-copy h3,.map-copy h3,.buy-card h3,.pay-head h2,.contact-card h3{font-family:Impact, Haettenschweiler, "Arial Black", sans-serif}
+    .hero h1{font-size:clamp(68px,10vw,144px);line-height:.82;letter-spacing:-2px;text-transform:uppercase;text-shadow:0 0 18px rgba(255,90,31,.28),0 0 48px rgba(255,90,31,.14)}
+    .hero-lead{margin-top:18px;max-width:740px;color:#efefef;font-size:18px;line-height:1.78}
+    .hero-badges,.hero-actions,.event-tabs,.btn-row{display:flex;flex-wrap:wrap;gap:12px}
+    .hero-badges{margin-top:24px}
+    .hero-badge{padding:12px 14px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:#fff;font-weight:900;font-size:14px}
+    .hero-actions{margin-top:26px}
+
+    .btn,.btn-ghost,.btn-dark,.tab-btn,.contact-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-width:190px;padding:15px 20px;border-radius:18px;border:none;font-weight:1000;cursor:pointer;transition:.22s ease}
+    .btn{color:#fff;background:linear-gradient(135deg,var(--accent2),var(--accent));box-shadow:0 18px 34px rgba(255,90,31,.22)}
+    .btn-ghost,.tab-btn{color:#fff;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09)}
+    .btn-dark{color:#fff;background:#171717;border:1px solid rgba(255,255,255,.08)}
+    .contact-btn{color:#fff;background:linear-gradient(135deg,#25d366,#16a34a)}
+    .btn:hover,.btn-ghost:hover,.btn-dark:hover,.tab-btn:hover,.contact-btn:hover,.card:hover{transform:translateY(-3px)}
+
+    section{padding:108px 0;position:relative}
+    .section-top{text-align:center;margin-bottom:28px}
+    .section-top h2{font-size:clamp(34px,4vw,54px);line-height:1;letter-spacing:-1px;margin-bottom:12px;text-transform:uppercase;color:#fff;text-shadow:0 0 8px rgba(255,255,255,.14),0 0 20px rgba(255,90,31,.24)}
+    .sub{max-width:920px;margin:0 auto;color:var(--muted);line-height:1.8;font-size:16px}
+
+    .card,.panel,.notice-card,.event-card,.poster-card,.count-card,.side-card,.ticket-card,.map-card,.instagram-shell,.pay-card,.contact-card,.wide-bar,.artists-feature,.important-box,.hero-fill-card,.next-dates-card{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015)), var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 16px 40px rgba(0,0,0,.24)}
+    .notice-grid,.event-grid,.buy-grid,.map-grid,.instagram-grid,.ticket-grid{display:grid;gap:18px}
+
+    .notice-grid{grid-template-columns:repeat(3,1fr);margin-top:28px}
+    .notice-card{padding:24px}
+    .notice-card h3{font-size:22px;margin-bottom:10px;text-transform:uppercase}
+    .notice-card p{color:#e8e8e8;line-height:1.78}
+
+    .promo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:22px}
+    .promo-feature{padding:24px;border-radius:26px;background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015)), var(--panel);border:1px solid var(--line);box-shadow:0 16px 40px rgba(0,0,0,.24)}
+    .promo-feature h3{font-size:19px;margin-bottom:10px;font-weight:1000}
+    .promo-feature p{color:#e8e8e8;line-height:1.85}
+    .promo-images{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+    .promo-image-card{overflow:hidden;border-radius:28px;background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015)), var(--panel);border:1px solid var(--line);box-shadow:0 16px 40px rgba(0,0,0,.24)}
+    .promo-image-card img{width:100%;height:350px;object-fit:cover;background:#0f0f0f}
+    .promo-image-copy{padding:22px}
+    .promo-image-copy h4{font-size:22px;margin-bottom:8px}
+    .promo-image-copy p{color:#e5e5e5;line-height:1.78}
+
+    .event-tabs{justify-content:center;margin-bottom:26px}
+    .tab-btn.active{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.18)}
+    .event-panel{display:none}
+    .event-panel.active{display:block}
+    .event-grid{grid-template-columns:1.05fr .95fr;align-items:start}
+    .event-card{padding:28px}
+    .event-card h3{font-size:clamp(34px,4vw,56px);line-height:1;letter-spacing:-1px;margin:12px 0;text-transform:uppercase}
+    .event-card p{color:#ececec;line-height:1.85;font-size:16px;margin-bottom:12px}
+    .event-meta{display:grid;gap:12px;margin-top:20px}
+    .event-meta div{padding:14px 16px;border-radius:18px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);font-weight:800;color:#f0f0f0;line-height:1.6}
+
+    .poster-card{position:relative;overflow:hidden;min-height:520px}
+    .poster-card img{width:100%;height:100%;min-height:520px;object-fit:cover}
+    .poster-badge{position:absolute;left:18px;top:18px;z-index:2;padding:10px 14px;border-radius:999px;background:rgba(0,0,0,.52);border:1px solid rgba(255,255,255,.12);color:#fff;font-size:12px;font-weight:1000;letter-spacing:1px;text-transform:uppercase;backdrop-filter:blur(10px)}
+    .poster-caption{position:absolute;left:18px;right:18px;bottom:18px;z-index:2;padding:18px;border-radius:22px;background:rgba(0,0,0,.48);border:1px solid rgba(255,255,255,.10);backdrop-filter:blur(12px)}
+    .poster-caption strong{display:block;font-size:18px;margin-bottom:6px}
+    .poster-caption span{color:#e7e7e7;line-height:1.65;font-size:14px}
+
+    .count-card{padding:24px;background:linear-gradient(135deg, rgba(255,120,60,.13), rgba(255,255,255,.02)), rgba(12,12,12,.88);box-shadow:var(--shadow)}
+    .count-label{font-size:12px;text-transform:uppercase;letter-spacing:1.2px;color:#d4d4d4;font-weight:1000;margin-bottom:8px}
+    .countdown{font-size:clamp(40px,4vw,60px);line-height:1;font-weight:1000;color:#ffb26f;text-shadow:0 0 24px rgba(255,90,31,.16)}
+    .count-sub{margin-top:10px;color:#e0e0e0;line-height:1.7;font-size:14px}
+    .count-fill{margin-top:18px;padding:18px;border-radius:22px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08)}
+    .count-fill-title{font-size:12px;text-transform:uppercase;letter-spacing:1.1px;color:#d9d9d9;font-weight:1000;margin-bottom:12px}
+    .count-fill-points{display:grid;gap:10px}
+    .count-fill-points div{padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);color:#f0f0f0;font-weight:800;line-height:1.6;font-size:14px}
+
+    .gallery-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}
+    .gallery-card{overflow:hidden;border-radius:26px;background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015)), var(--panel);border:1px solid var(--line)}
+    .gallery-card img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:center top;background:#0f0f0f}
+    .gallery-copy{padding:20px}
+    .gallery-copy h4{font-size:18px;margin-bottom:8px}
+    .gallery-copy p{color:#e5e5e5;line-height:1.75}
+
+    .ticket-grid{grid-template-columns:repeat(4,1fr);align-items:stretch}
+    .ticket-card{padding:24px;position:relative;overflow:hidden}
+    .ticket-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(180deg,var(--accent2),transparent 80%)}
+    .ticket-tag{display:inline-flex;width:max-content;padding:8px 12px;border-radius:999px;font-size:12px;font-weight:1000;text-transform:uppercase;letter-spacing:.9px;background:rgba(255,90,31,.12);border:1px solid rgba(255,90,31,.20);color:#ffd9cb}
+    .ticket-card h3{font-size:24px;margin:14px 0 10px}
+    .ticket-price{font-size:42px;font-weight:1000;letter-spacing:-1px}
+    .ticket-price span{font-size:16px;color:#c7c7c7;font-weight:800;margin-left:4px}
+    .ticket-list{display:grid;gap:10px;color:#ddd;line-height:1.7;margin-top:14px}
+    .ticket-list div{position:relative;padding-left:22px}
+    .ticket-list div::before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:1000}
+
+    .buy-grid{grid-template-columns:1.02fr .98fr;align-items:start}
+    .panel{padding:28px}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .full{grid-column:1 / -1}
+    label{display:block;margin-bottom:8px;font-size:14px;color:#e2e2e2;font-weight:900}
+    input,select{width:100%;padding:15px 16px;border-radius:16px;border:1px solid rgba(255,255,255,.10);background:#101010;color:#fff;font-size:15px;outline:none;transition:.2s ease}
+    input:focus,select:focus{border-color:rgba(255,110,50,.42);box-shadow:0 0 0 4px rgba(255,90,31,.08)}
+    .inline-note{margin-top:9px;padding:14px 15px;border-radius:16px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.07);color:#ddd;line-height:1.65;font-size:14px}
+    .wide-bar{margin-top:16px;padding:16px 20px;border-radius:22px;display:flex;align-items:center;justify-content:space-between;gap:14px;background:linear-gradient(135deg, rgba(255,120,60,.10), rgba(255,255,255,.02)), #151515}
+    .wide-bar strong{display:block;font-size:18px;margin-bottom:4px}
+    .wide-bar p{color:#d9d9d9;line-height:1.65}
+    .summary-sticky{position:sticky;top:100px;display:grid;gap:16px}
+    .side-card{padding:26px}
+    .summary-box{margin-top:14px;padding:16px;border-radius:18px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.07);color:#e1e1e1;line-height:1.8}
+    .msg{display:none;margin-top:12px;padding:14px 15px;border-radius:16px;font-weight:800;line-height:1.5}
+    .msg.ok{display:block;background:rgba(24,214,115,.12);border:1px solid rgba(24,214,115,.22);color:#c9f5de}
+    .msg.err{display:block;background:rgba(255,124,124,.12);border:1px solid rgba(255,124,124,.22);color:#ffd9d9}
+    .msg.warn{display:block;background:rgba(255,209,102,.12);border:1px solid rgba(255,209,102,.22);color:#ffe7a6}
+
+    .map-grid{grid-template-columns:1fr 1fr;align-items:start}
+    .map-card{padding:28px}
+    .map-copy h3{font-size:34px;line-height:1;margin-bottom:14px;text-transform:uppercase}
+    .map-copy p{color:#e6e6e6;line-height:1.85;font-size:16px;margin-bottom:10px}
+    .map-embed{width:100%;min-height:520px;border-radius:28px;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:#111}
+    .map-embed iframe{width:100%;height:520px;border:0;display:block}
+
+    .location-hero{margin-bottom:24px;text-align:center}
+    .location-hero h2{font-size:clamp(36px,4.8vw,60px);line-height:1;text-transform:uppercase;letter-spacing:-1px;margin-bottom:12px;text-shadow:0 0 8px rgba(255,255,255,.14),0 0 20px rgba(255,90,31,.24)}
+    .location-hero p{max-width:980px;margin:0 auto;color:#d8d8d8;line-height:1.8}
+    .location-label{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);font-size:12px;font-weight:1000;letter-spacing:1px;text-transform:uppercase;color:#f7d8cb;margin-bottom:16px}
+    .location-panel{padding:18px;border-radius:24px;background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.08);margin-top:20px}
+    .location-warning{margin-top:18px;padding:16px 18px;border-radius:20px;border:1px solid rgba(255,90,31,.28);background:rgba(255,90,31,.08);color:#ffe2d7;font-weight:900;line-height:1.6}
+    .location-photo-card{margin-top:18px;overflow:hidden;border-radius:24px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03)}
+    .location-photo-card img{width:100%;height:260px;object-fit:cover;background:#0f0f0f}
+    .location-photo-copy{padding:22px}
+    .location-photo-copy h4{font-size:18px;margin-bottom:8px;text-transform:uppercase}
+    .location-photo-copy p{color:#dddddd;line-height:1.7}
+
+    .instagram-shell{overflow:hidden;background:linear-gradient(135deg, rgba(255,110,60,.15), rgba(255,40,130,.10) 45%, rgba(140,60,255,.10)),#141414;box-shadow:var(--shadow)}
+    .instagram-grid{grid-template-columns:1.05fr .95fr;align-items:start}
+    .instagram-copy{padding:36px}
+    .instagram-copy h3{font-size:clamp(34px,4vw,58px);line-height:.95;margin-bottom:14px;letter-spacing:-1px;text-transform:uppercase}
+    .instagram-copy p{color:#e8e8e8;line-height:1.82}
+    .instagram-points{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+    .instagram-point{padding:15px;border-radius:18px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.10);color:#fff;font-weight:800;line-height:1.55}
+    .instagram-visual{padding:30px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at center, rgba(255,255,255,.10), transparent 42%),linear-gradient(rgba(0,0,0,.08), rgba(0,0,0,.24))}
+    .phone{width:min(340px,100%);border-radius:36px;padding:14px;background:linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.14);box-shadow:0 20px 54px rgba(0,0,0,.30);backdrop-filter:blur(10px)}
+    .phone-screen{border-radius:28px;overflow:hidden;background:#111;border:1px solid rgba(255,255,255,.08)}
+    .insta-topbar{padding:14px 16px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(90deg,#ff6a2f,#ff3d77,#8f4dff);color:#fff;font-weight:1000;font-size:14px}
+    .insta-post{padding:16px;background:linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,.01)),#151515}
+    .insta-media{height:270px;border-radius:22px;background:linear-gradient(rgba(0,0,0,.18), rgba(0,0,0,.18)),url("pistonesxracing.jpg") center center / cover no-repeat;border:1px solid rgba(255,255,255,.08);position:relative;overflow:hidden}
+    .insta-media::after{content:"PISTONES XRACING";position:absolute;left:16px;bottom:16px;padding:10px 14px;border-radius:999px;font-size:12px;font-weight:1000;letter-spacing:1px;background:rgba(0,0,0,.48);border:1px solid rgba(255,255,255,.10);color:#fff}
+    .insta-caption{margin-top:14px;color:#dfdfdf;line-height:1.75;font-size:14px}
+
+    .guest-banner{margin-top:22px;margin-bottom:44px;overflow:hidden;border-radius:30px;background:linear-gradient(90deg, rgba(255,255,255,.04), rgba(255,255,255,.015)), var(--panel);border:1px solid rgba(255,255,255,.08);box-shadow:0 16px 40px rgba(0,0,0,.24)}
+    .guest-banner-grid{display:grid;grid-template-columns:180px 1fr 180px;align-items:center;min-height:180px}
+    .guest-banner-image{height:100%;min-height:180px;background-size:cover;background-position:center}
+    .guest-banner-image.left{background-image:url("b7664b78-d03a-48ca-8934-cfb251c56930.jpg");background-position:center top}
+    .guest-banner-image.right{background-image:url("minirulas2.jpg");background-position:center top}
+    .guest-banner-copy{padding:28px 26px;text-align:center}
+    .guest-banner-copy .pill{margin-bottom:14px}
+    .guest-banner-copy h3{font-size:clamp(28px,3.6vw,50px);line-height:1;text-transform:uppercase;letter-spacing:-1px;margin-bottom:12px;font-family:Impact, Haettenschweiler, "Arial Black", sans-serif}
+    .guest-banner-copy p{color:#ececec;line-height:1.8;font-size:16px;max-width:700px;margin:0 auto}
+    .poster-caption.poster-countdown{display:grid;gap:8px;background:rgba(15,15,15,.58)}
+    .poster-caption.poster-countdown .count-label{margin-bottom:0}
+    .poster-countdown-value{font-size:clamp(34px,4vw,58px);line-height:1;font-weight:1000;color:#ffb26f;text-shadow:0 0 24px rgba(255,90,31,.16)}
+    .poster-countdown-sub{color:#e7e7e7;line-height:1.65;font-size:14px}
+
+    .pay-overlay{position:fixed;inset:0;background:rgba(0,0,0,.86);display:none;align-items:center;justify-content:center;padding:24px;z-index:2200}
+    .pay-overlay.open{display:flex}
+    .pay-wrap{width:min(760px,calc(100% - 24px))}
+    .pay-head{text-align:center;margin-bottom:20px}
+    .pay-head h2{font-size:44px;line-height:1;margin-bottom:12px;text-transform:uppercase}
+    .pay-head p{color:#d4d4d4;line-height:1.75}
+    .pay-card{padding:28px;background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015)), #151515;box-shadow:var(--shadow)}
+    .pay-card h3{font-size:24px;margin-bottom:16px}
+    .pay-box{padding:16px;border-radius:20px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);line-height:1.8;color:#e7e7e7}
+    .bizum-box{margin-top:16px;padding:18px;border-radius:22px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);text-align:center}
+    .bizum-number{font-size:clamp(32px,5vw,56px);font-weight:1000;letter-spacing:1px;margin:10px 0 12px}
+    .contact-card{padding:24px;background:linear-gradient(135deg, rgba(37,211,102,.12), rgba(255,255,255,.02)), #141414}
+    .contact-card h3{font-size:30px;line-height:1;margin-bottom:12px;text-transform:uppercase}
+    .contact-card p{color:#e8e8e8;line-height:1.8}
+
+    .footer{padding:34px 0 42px;text-align:center;color:#b7b7b7;border-top:1px solid rgba(255,255,255,.06);background:#101010;margin-top:24px}
+
+    .hero-side-stack{
+      display:grid;
+      gap:18px;
+      align-content:start;
+    }
+
+    .hero-fill-card{
+      padding:24px;
+      min-height:230px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      background:
+        radial-gradient(circle at top right, rgba(255,90,31,.16), transparent 35%),
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015)),
+        var(--panel);
+    }
+    .hero-fill-card h3{
+      font-family:Impact, Haettenschweiler, "Arial Black", sans-serif;
+      font-size:44px;
+      line-height:.95;
+      text-transform:uppercase;
+      letter-spacing:-.5px;
+      margin-bottom:12px;
+    }
+    .hero-fill-card p{
+      color:#ededed;
+      line-height:1.8;
+      font-size:15px;
+      max-width:520px;
+    }
+    .hero-mini-points{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin-top:18px;
+    }
+    .hero-mini-point{
+      padding:14px 16px;
+      border-radius:18px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+      font-weight:900;
+      line-height:1.55;
+      color:#f3f3f3;
+    }
+
+    .next-dates-card{
+      padding:24px;
+      background:linear-gradient(135deg, rgba(255,120,60,.13), rgba(255,255,255,.02)), rgba(12,12,12,.88);
+      box-shadow:var(--shadow);
+    }
+    .next-dates-title{
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:1.2px;
+      color:#d4d4d4;
+      font-weight:1000;
+      margin-bottom:10px;
+    }
+    .next-dates-main{
+      font-size:clamp(28px,3vw,42px);
+      line-height:1.08;
+      font-weight:1000;
+      color:#ffb26f;
+      text-shadow:0 0 24px rgba(255,90,31,.16);
+    }
+    .next-dates-sub{
+      margin-top:12px;
+      color:#e0e0e0;
+      line-height:1.7;
+      font-size:15px;
+    }
+    .next-dates-list{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:18px;
+    }
+    .next-date-pill{
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.09);
+      font-weight:900;
+      color:#fff;
+      font-size:14px;
+    }
+
+    .event-13-layout{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    .event-13-side{
+      display:grid;
+      grid-template-rows:auto 1fr;
+      gap:18px;
+      height:100%;
+    }
+    .event-13-side .count-card{
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      margin-top:0 !important;
+    }
+    .event-13-layout .poster-card{
+      height:100%;
+    }
+
+    .artists-feature{
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 74% 26%, rgba(255,90,31,.22), transparent 22%),
+        linear-gradient(90deg, rgba(255,90,31,.10), rgba(255,255,255,.015)),
+        #141414;
+      margin-top:18px;
+    }
+    .artists-feature-grid{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      min-height:650px;
+    }
+    .artists-feature-copy{
+      padding:34px;
+      border-right:1px solid rgba(255,255,255,.06);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+    .artists-feature-copy h3{
+      font-family:Impact, Haettenschweiler, "Arial Black", sans-serif;
+      font-size:clamp(42px,5vw,72px);
+      line-height:.95;
+      text-transform:uppercase;
+      margin:14px 0 18px;
+      letter-spacing:-1px;
+    }
+    .artists-feature-copy p{
+      color:#ededed;
+      line-height:1.9;
+      font-size:16px;
+      margin-bottom:14px;
+    }
+    .artists-feature-points{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      margin-top:14px;
+    }
+    .artists-feature-point{
+      padding:16px 18px;
+      border-radius:22px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+      color:#fff;
+      font-weight:900;
+      line-height:1.6;
+    }
+    .artists-feature-visual{
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:650px;
+      padding:30px;
+      overflow:hidden;
+    }
+    .artists-orbit{
+      width:300px;
+      height:300px;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.12);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      background:radial-gradient(circle at center, rgba(255,120,60,.22), rgba(255,255,255,.02));
+      box-shadow:0 0 80px rgba(255,90,31,.18);
+    }
+    .artists-orbit::before{
+      content:"";
+      position:absolute;
+      inset:-36px;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .artists-orbit-text{
+      max-width:180px;
+      text-align:center;
+      font-family:Impact, Haettenschweiler, "Arial Black", sans-serif;
+      font-size:28px;
+      line-height:1.1;
+      text-transform:uppercase;
+      letter-spacing:.2px;
+    }
+    .artists-cta{
+      position:absolute;
+      bottom:38px;
+      left:50%;
+      transform:translateX(-50%);
+    }
+
+    .important-box{
+      padding:28px;
+      margin-top:18px;
+    }
+    .important-box h3{
+      font-family:Impact, Haettenschweiler, "Arial Black", sans-serif;
+      font-size:34px;
+      line-height:1;
+      text-transform:uppercase;
+      margin-bottom:18px;
+    }
+    .important-list{
+      display:grid;
+      gap:14px;
+      color:#ececec;
+      line-height:1.7;
+      font-size:16px;
+      font-weight:800;
+    }
+    .important-list div{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+    }
+
+    .artists-modal{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.88);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:2400;
+    }
+    .artists-modal.open{display:flex}
+    .artists-modal-shell{
+      width:min(1060px, 100%);
+      max-height:92vh;
+      overflow:auto;
+      border-radius:28px;
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015)), #101010;
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:var(--shadow);
+      padding:28px;
+      position:relative;
+    }
+    .artists-modal-head{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      margin-bottom:22px;
+      position:relative;
+    }
+    .artists-modal-head h3{
+      font-family:Impact, Haettenschweiler, "Arial Black", sans-serif;
+      font-size:clamp(36px,4vw,60px);
+      text-transform:uppercase;
+      line-height:1;
+    }
+    .artists-close{
+      position:absolute;
+      right:0;
+      top:0;
+      width:52px;
+      height:52px;
+      border-radius:50%;
+      border:none;
+      cursor:pointer;
+      background:rgba(255,255,255,.08);
+      color:#fff;
+      font-size:28px;
+      line-height:1;
+    }
+    .artists-modal-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+    }
+    .artist-modal-card{
+      overflow:hidden;
+      border-radius:26px;
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015)), var(--panel);
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .artist-modal-card img{
+      width:100%;
+      aspect-ratio:16/10;
+      object-fit:cover;
+      object-position:center top;
+      background:#0f0f0f;
+    }
+
+    @media (max-width:1080px){
+      .hero-grid,.event-grid,.buy-grid,.map-grid,.instagram-grid{grid-template-columns:1fr}
+      .ticket-grid,.notice-grid,.promo-grid{grid-template-columns:repeat(2,1fr)}
+      .poster-card,.poster-card img{min-height:420px}
+      .event-13-layout,.artists-feature-grid{grid-template-columns:1fr}
+      .artists-feature-copy{border-right:none;border-bottom:1px solid rgba(255,255,255,.06)}
+      .artists-feature-visual{min-height:420px}
+    }
+    @media (max-width:820px){
+      .menu-btn{display:inline-flex}
+      nav{position:absolute;top:calc(100% + 10px);left:15px;right:15px;display:none;flex-direction:column;align-items:stretch;padding:14px;border-radius:20px;background:rgba(14,14,14,.98);border:1px solid rgba(255,255,255,.08);box-shadow:var(--shadow)}
+      nav.open{display:flex}
+      nav a{text-align:center}
+      .hero{min-height:auto;padding-bottom:76px}
+      .form-grid,.ticket-grid,.notice-grid,.gallery-grid,.instagram-points,.hero-mini-points,.artists-feature-points,.artists-modal-grid,.promo-grid,.promo-images{grid-template-columns:1fr}
+      .guest-banner-grid{grid-template-columns:1fr}
+      .guest-banner-image{min-height:150px}
+      .summary-sticky{position:static}
+      .map-embed,.map-embed iframe{min-height:360px;height:360px}
+      .poster-card,.poster-card img{min-height:340px}
+      .artists-orbit{width:240px;height:240px}
+      .artists-cta{position:static;transform:none;margin-top:20px}
+      .artists-feature-visual{gap:20px;flex-direction:column}
+    }
+    @media (max-width:560px){
+      .wrap,.header-inner{width:min(var(--max),calc(100% - 22px))}
+      .panel,.side-card,.map-card,.event-card,.notice-card,.ticket-card,.contact-card,.pay-card,.important-box,.hero-fill-card,.next-dates-card{padding:20px}
+      .tab-btn{width:100%}
+      .wide-bar{flex-direction:column;align-items:flex-start}
+      .hero h1{font-size:60px}
+      .hero-fill-card h3{font-size:34px}
+      .artists-feature-copy h3{font-size:48px}
+    }
+  </style>
 </head>
 <body>
-
   <div class="noise"></div>
   <div class="glow one"></div>
   <div class="glow two"></div>
@@ -1871,11 +579,10 @@ select:focus{
         <span class="logo-mark"></span>
         <span>PistonesXRacing</span>
       </div>
-
       <button class="menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false">Menú</button>
-
       <nav id="nav">
-        <a href="#evento" class="active">Evento</a>
+        <a href="#principal" class="active">Inicio</a>
+        <a href="#eventos">Eventos</a>
         <a href="#ubicacion">Ubicación</a>
         <a href="#entradas">Entradas</a>
         <a href="#comprar">Comprar</a>
@@ -1884,301 +591,304 @@ select:focus{
     </div>
   </header>
 
-  <main id="mainScreen">
-
-    <section class="hero">
+  <main>
+    <section class="hero" id="principal">
       <div class="hero-grid">
-        <div class="reveal">
-          <div class="eyebrow">🔥 Festival de motor · música · bbq · dj set</div>
+        <div>
+          <div class="eyebrow">Web oficial · motor · lanzadas · exposición</div>
           <h1>PISTONES<br>XRACING</h1>
           <p class="hero-lead">
-            Una jornada creada para mezclar <strong>motor, lanzadas, exposición, artistas y show en directo</strong>.
-            El evento contará además con la presencia de <strong>DJ Kifero</strong> y una zona de comida con
-            <strong>parrillas, barbacoa, pollo, cubatas y bebidas de todo tipo</strong>.
+            Web oficial de PistonesXRacing.<br>
+            Aquí tienes normas, precios, entradas, ubicación, redes y acceso a cada evento.
           </p>
 
           <div class="hero-badges">
-            <div class="hero-badge">📅 Sábado 13 de junio · 11:00h a 23:00h</div>
-            <div class="hero-badge">📍 Aeródromo de Valdelaguna "Valle de la Laguna" · Valdelaguna</div>
-            <div class="hero-badge">🎟️ Entrada persona · 12€</div>
-            <div class="hero-badge">🚗 Coche normal · 10€</div>
-            <div class="hero-badge">⭐ VIP · 15€</div>
+            <div class="hero-badge">📅 2 de mayo · 16 de mayo · 13 de junio</div>
+            <div class="hero-badge">📍 Aeródromo Aerobalas</div>
+            <div class="hero-badge">💸 Taquilla solo efectivo</div>
           </div>
 
           <div class="hero-actions">
-            <a class="btn" href="#comprar">Comprar entradas</a>
-            <a class="btn-ghost" href="#evento">Ver el evento</a>
-          </div>
-
-          <div class="hero-extra-info">
-            <div class="hero-info-grid">
-              <div class="info-card reveal delay-2">
-                <small>Fecha</small>
-                <strong>Sábado 13 de junio de 2026</strong>
-              </div>
-              <div class="info-card reveal delay-2">
-                <small>Horario</small>
-                <strong>11:00h a 23:00h</strong>
-              </div>
-              <div class="info-card reveal delay-3">
-                <small>Lugar</small>
-                <strong>Aeródromo de Valdelaguna "Valle de la Laguna"</strong>
-              </div>
-              <div class="info-card reveal delay-3">
-                <small>Dirección</small>
-                <strong>28391 Valdelaguna, Madrid, España</strong>
-              </div>
-            </div>
-
-            <div class="alert-card reveal delay-4">
-              🚫 No se podrá entrar al recinto con bebida ni comida del exterior.
-            </div>
+            <a class="btn" href="#eventos">Ver eventos</a>
+            <a class="btn-ghost" href="#comprar">Comprar o reservar</a>
           </div>
         </div>
 
-        <div class="hero-side">
-          <div class="hero-poster-card reveal delay-1">
-            <span class="hero-poster-badge">Cartel oficial</span>
-            <img
-              src="cartel.jpeg"
-              alt="Cartel oficial del evento PistonesXRacing"
-              class="hero-poster-img zoomable"
-              data-full="cartel.jpeg"
-            />
-            <div class="hero-poster-caption">
-              <strong>PistonesXRacing · Sábado 13 de junio</strong>
-              <span>Motor, exposición, lanzadas, artistas, DJ Kifero y ambiente non stop durante toda la jornada.</span>
+        <div class="hero-side-stack">
+          <div class="hero-fill-card">
+            <div>
+              <div class="pill">Evento · motor · música · show</div>
+              <h3>Festival de motor<br>+ ambiente premium</h3>
+              <p>
+                Un formato pensado para juntar coches, lanzadas, exposición, artistas en directo,
+                DJ y una experiencia visual más grande durante toda la jornada.
+              </p>
+            </div>
+
+            <div class="hero-mini-points">
+              <div class="hero-mini-point">🔥 Ambiente fuerte durante todo el día</div>
+              <div class="hero-mini-point">🎶 Artistas, DJ y show en directo</div>
+              <div class="hero-mini-point">🚗 Exposición + lanzadas</div>
+              <div class="hero-mini-point">📍 Acceso por compra online o reserva</div>
             </div>
           </div>
 
-          <div class="count-card reveal delay-2">
-            <div class="count-label">Cuenta atrás oficial</div>
-            <div class="countdown" id="countdown">Cargando...</div>
-            <div class="count-sub">
-              El evento arranca el <strong>sábado 13 de junio de 2026 a las 11:00h</strong> y finaliza a las <strong>23:00h</strong>.
+          <div class="next-dates-card">
+            <div class="next-dates-title">Fechas próximas</div>
+            <div class="next-dates-main">2 de mayo · 16 de mayo · 13 de junio</div>
+            <div class="next-dates-sub">Selecciona una fecha y entra directamente a su evento.</div>
+
+            <div class="next-dates-list">
+              <span class="next-date-pill">2 de mayo</span>
+              <span class="next-date-pill">16 de mayo</span>
+              <span class="next-date-pill">13 de junio</span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="stats">
+    <section>
       <div class="wrap">
-        <div class="stats-grid">
-          <div class="stat">
-            <strong>DJ Kifero</strong>
-            <span>Sesión en directo para mantener el ambiente encendido durante toda la jornada.</span>
+        <div class="guest-banner" style="margin-bottom:42px;">
+          <div class="guest-banner-grid">
+            <div class="guest-banner-image left"></div>
+            <div class="guest-banner-copy">
+              <div class="pill">Asistencia especial</div>
+              <h3>Contaremos con la asistencia de Mini Rulas</h3>
+              <p>Además del contenido oficial del evento, también tendremos presencia especial para reforzar el ambiente, las fotos, los vídeos y el movimiento en redes durante la jornada.</p>
+            </div>
+            <div class="guest-banner-image right"></div>
           </div>
-          <div class="stat">
-            <strong>Zona BBQ</strong>
-            <span>Parrillas, barbacoa, pollo, cubatas y bebidas de todo tipo dentro del recinto.</span>
+        </div>
+
+        <div class="section-top" style="margin-top:0;">
+          <div class="section-kicker">Información general</div>
+          <h2>Normas y acceso</h2>
+          <p class="sub">Todo lo importante antes de venir.</p>
+        </div>
+
+        <div class="notice-grid">
+          <div class="notice-card">
+            <h3>DNI físico</h3>
+            <p>Para entrar hace falta llevar el DNI físico. Sin DNI físico no se podrá acceder al evento.</p>
           </div>
-          <div class="stat">
-            <strong>13 junio</strong>
-            <span>El evento será el sábado 13 de junio de 11:00h a 23:00h en Camino de los Tintos, Valdelaguna.</span>
+          <div class="notice-card">
+            <h3>Devoluciones</h3>
+            <p>Solo se devuelve el dinero si el evento se cancela. En cualquier otro caso no hay devolución.</p>
           </div>
-          <div class="stat">
-            <strong>Motor + show</strong>
-            <span>Lanzadas, exposición, artistas y una experiencia visual mucho más potente.</span>
+          <div class="notice-card">
+            <h3>Taquilla</h3>
+            <p>La reserva por taquilla se hace por la web, pero el pago en el evento es solo en efectivo.</p>
+          </div>
+        </div>
+
+        <div class="section-top" style="margin-top:52px;">
+          <div class="section-kicker">Motor y espectáculo</div>
+          <h2>Carreras, exposición y show</h2>
+          <p class="sub">La parte fuerte del evento, separada de las normas para que se vea más claro.</p>
+        </div>
+
+        <div class="promo-grid">
+          <div class="promo-feature">
+            <h3>🏁 Lanzadas de cuarto de milla</h3>
+            <p>Una de las partes más fuertes del día, con toda la adrenalina y el ambiente de cada salida.</p>
+          </div>
+          <div class="promo-feature">
+            <h3>🚘 Exposición de coches</h3>
+            <p>Coches llamativos y una imagen más potente para asistentes, público y redes.</p>
+          </div>
+          <div class="promo-feature">
+            <h3>🎤 Escenario principal</h3>
+            <p>Artistas confirmados en directo para reforzar la parte musical y visual del evento.</p>
+          </div>
+          <div class="promo-feature">
+            <h3>🎧 DJ </h3>
+            <p>Presencia especial en cabina para mantener el ambiente arriba durante toda la jornada.</p>
+          </div>
+          <div class="promo-feature">
+            <h3>🍗 Comidas y bebidas</h3>
+            <p>Habrá comida y bebida de todo tipo dentro del recinto.</p>
+          </div>
+          <div class="promo-feature">
+            <h3>🚫 Norma importante</h3>
+            <p>No se podrá acceder con comida ni bebida del exterior. DNI físico obligatorio 100%.</p>
+          </div>
+        </div>
+
+        <div class="promo-images">
+          <div class="promo-image-card">
+            <img src="carreras.jpg" alt="Carreras y lanzadas" />
+            <div class="promo-image-copy">
+              <h4>Carreras y lanzadas</h4>
+              <p>Una imagen potente y toda la emoción de cada salida para que la parte de motor se vea a lo grande.</p>
+            </div>
+          </div>
+
+          <div class="promo-image-card">
+            <img src="expo.jpg" alt="Exposición de coches" />
+            <div class="promo-image-copy">
+              <h4>Exposición de coches</h4>
+              <p>La exposición añade valor visual al evento y refuerza su presencia como experiencia completa.</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="evento">
+    <section id="eventos">
       <div class="wrap">
         <div class="section-top">
-          <h2>Mucho más que unas lanzadas</h2>
-          <p class="sub">
-            PistonesXRacing se plantea como una experiencia completa: motor, música, ambiente, comida y presencia en redes en un solo evento.
-          </p>
+          <div class="section-kicker">Eventos</div>
+          <h2>Fechas</h2>
+          <p class="sub">Pulsa una fecha para ver su información.</p>
         </div>
 
-        <div class="main-card">
-          <div class="main-card-grid">
-            <div class="main-copy">
-              <div class="section-kicker">🎤 Show principal</div>
-              <h3>Artistas confirmados + DJ Kifero</h3>
-              <p>
-                Este evento no va solo de motor. También está pensado para que el ambiente se sienta grande,
-                con artistas en directo y la presencia de <strong>DJ Kifero</strong> durante la jornada.
-              </p>
-              <p>
-                La idea es mezclar coches, lanzadas, exposición, música y espectáculo en un formato más premium y más festival.
-              </p>
+        <div class="event-tabs">
+          <button class="tab-btn active" data-target="evento-2">2 de mayo</button>
+          <button class="tab-btn" data-target="evento-16">16 de mayo</button>
+          <button class="tab-btn" data-target="evento-13">13 de junio</button>
+        </div>
 
-              <div class="highlights">
-                <div class="highlight">🔥 Ambiente fuerte durante todo el día</div>
-                <div class="highlight">🎶 Escenario con artistas y show</div>
-                <div class="highlight">🎧 DJ Kifero en cabina</div>
-                <div class="highlight">🏎️ Motor + música + experiencia visual</div>
+        <div class="event-panel active" id="evento-2">
+          <div class="event-grid">
+            <div class="event-card">
+              <div class="pill">2 de mayo</div>
+              <h3>2 de mayo</h3>
+              <p>Jornada de motor con exposición, ambiente, zona de comida y acceso por compra online o reserva para pagar en taquilla.</p>
+              <div class="event-meta">
+                <div>📅 2 de mayo</div>
+                <div>⏰ 11:00h a 23:00h</div>
+                <div>📍 Aeródromo Aerobalas</div>
+                <div>🎟️ Público · Lanzadas · VIP</div>
+                <div>💸 Taquilla solo efectivo</div>
               </div>
             </div>
+            <div>
+              <div class="count-card">
+                <div class="count-label">Cuenta atrás</div>
+                <div class="countdown" id="countdown2">Cargando...</div>
+                <div class="count-sub">Compra online disponible hasta completar cupo. Después solo quedará la reserva para pagar en taquilla.</div>
+                <div class="count-fill">
+                  <div class="count-fill-title">Qué encontrarás ese día</div>
+                  <div class="count-fill-points">
+                    <div>🚗 Exposición de coches y ambiente durante toda la jornada</div>
+                    <div>🏁 Zona de lanzadas y acceso para público, pilotos y VIP</div>
+                    <div>💸 Compra online o reserva para pagar en taquilla en efectivo</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-            <div class="main-visual">
-              <div class="visual-ring">
-                <div class="visual-ring-inner">
-                  Festival<br>de motor<br>+ dj set
+        <div class="event-panel" id="evento-16">
+          <div class="event-grid">
+            <div class="event-card">
+              <div class="pill">16 de mayo</div>
+              <h3>16 de mayo</h3>
+              <p>Fecha con venta por web y reserva para taquilla, con la misma dinámica de acceso y control de cupo.</p>
+              <div class="event-meta">
+                <div>📅 16 de mayo</div>
+                <div>⏰ 11:00h a 23:00h</div>
+                <div>📍 Aeródromo Aerobalas</div>
+                <div>🎟️ Público · Lanzadas · VIP</div>
+                <div>💸 Taquilla solo efectivo</div>
+              </div>
+            </div>
+            <div>
+              <div class="count-card">
+                <div class="count-label">Cuenta atrás</div>
+                <div class="countdown" id="countdown16">Cargando...</div>
+                <div class="count-sub">Cuando se complete la venta online, seguirá disponible la reserva para taquilla si todavía queda cupo.</div>
+                <div class="count-fill">
+                  <div class="count-fill-title">Plan del evento</div>
+                  <div class="count-fill-points">
+                    <div>🔥 Jornada fuerte de motor con exposición y movimiento constante</div>
+                    <div>🎟️ Entrada por persona, lanzadas y plazas VIP disponibles</div>
+                    <div>📍 Acceso en Aeródromo Aerobalas de 11:00h a 23:00h</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="event-panel" id="evento-13">
+          <div class="event-13-layout">
+            <div class="event-13-side">
+              <div class="event-card">
+                <div class="pill">13 de junio</div>
+                <h3>13 de junio</h3>
+                <p>
+                  Cartel especial con artistas confirmados, DJ Kifero, exposición,
+                  lanzadas y jornada completa en pista.
+                </p>
+                <p>
+                  Si reservas la entrada por persona para pagar en taquilla,
+                  se aplica un descuento de 2€ y se queda en 10€.
+                </p>
+
+                <div class="event-meta">
+                  <div>⏰ 11:00h a 23:00h</div>
+                  <div>📍 Aeródromo Aerobalas · Casas de los Pinos, Cuenca</div>
+                  <div>🎤 Artistas + DJ + exposición + lanzadas</div>
                 </div>
               </div>
 
-              <button class="artists-btn" id="openArtists">
-                Ver artistas confirmados 🎤
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div class="dj-card">
-          <div class="dj-image">
-            <img src="djkifero.jpeg" alt="DJ Kifero" class="artist-kifero">
-          </div>
-
-          <div class="dj-copy">
-            <div class="section-kicker">🎧 DJ invitado</div>
-            <h3>DJ Kifero</h3>
-            <p>
-              Debajo de la sección de artistas queda destacado <strong>DJ Kifero</strong>, que estará poniendo música
-              y elevando el ambiente para que el evento tenga un punto todavía más fuerte.
-            </p>
-            <p>
-              Su perfil oficial es <strong>@dj.kifero</strong> y estará presente en la jornada animando el recinto con una sesión en directo.
-            </p>
-
-            <div class="dj-tags">
-              <span class="dj-tag">🎧 DJ en directo</span>
-              <span class="dj-tag">🔥 Ambiente non stop</span>
-              <span class="dj-tag">📲 Instagram oficial</span>
+              <div class="count-card" style="margin-top:18px;">
+                <div class="count-label">Cuenta atrás</div>
+                <div class="countdown" id="countdown13">Cargando...</div>
+                <div class="count-sub">Motor, exposición, lanzadas, artistas y DJ durante toda la jornada.</div>
+                <div class="count-fill">
+                  <div class="count-fill-title">Info rápida del 13 de junio</div>
+                  <div class="count-fill-points">
+                    <div>🎤 Artistas confirmados + DJ Kifero</div>
+                    <div>🏁 Exposición, lanzadas y jornada completa en pista</div>
+                    <div>💸 Reserva para taquilla con descuento de 2€ en entrada por persona</div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <a class="insta-btn" href="https://www.instagram.com/dj.kifero?igsh=eTB4OGVvbDc4aTVi" target="_blank" rel="noopener">
-              Ver Instagram de DJ Kifero
-            </a>
-          </div>
-        </div>
-
-        <div class="strip-grid">
-          <div class="rules-card">
-            <h3>Normas del evento</h3>
-            <p>
-              Para mantener el recinto organizado y que todo funcione correctamente, habrá unas normas claras durante toda la jornada.
-            </p>
-
-            <div class="mini-list">
-              <div>🚫 No se podrá entrar con comida del exterior</div>
-              <div>🚫 No se podrá entrar con bebida del exterior</div>
-              <div>✅ Sigue siempre las indicaciones de la organización</div>
-              <div>✅ Respeta las zonas de público, coches y escenario</div>
+            <div>
+              <div class="poster-card">
+                <span class="poster-badge">Cartel</span>
+                <img src="cartel.jpeg" alt="Cartel del 13 de junio" />
+              </div>
             </div>
           </div>
 
-          <div class="food-card">
-            <h3>Comida y bebida disponible</h3>
-            <p>
-              Dentro del recinto habrá una zona preparada para comer y beber sin salir del evento.
-            </p>
+          <div class="artists-feature">
+            <div class="artists-feature-grid">
+              <div class="artists-feature-copy">
+                <div class="pill">🎤 Show principal</div>
+                <h3>Artistas<br>confirmados + DJ Kifero</h3>
+                <p>
+                  Este evento no va solo de motor. También está pensado para que el ambiente se
+                  sienta grande, con artistas en directo y la presencia de DJ Kifero durante la jornada.
+                </p>
+                <p>
+                  La idea es mezclar coches, lanzadas, exposición, música y espectáculo en un
+                  formato más premium y más festival.
+                </p>
 
-            <div class="mini-list">
-              <div>🍖 Parrillas y barbacoa</div>
-              <div>🍗 Pollo y comida caliente</div>
-              <div>🥃 Cubatas</div>
-              <div>🥤 Bebidas de todo tipo</div>
+                <div class="artists-feature-points">
+                  <div class="artists-feature-point">🔥 Ambiente fuerte durante todo el día</div>
+                  <div class="artists-feature-point">🎶 Escenario con artistas y show</div>
+                  <div class="artists-feature-point">🎧 DJ Kifero en cabina</div>
+                  <div class="artists-feature-point">🏎️ Motor + música + experiencia visual</div>
+                </div>
+              </div>
+
+              <div class="artists-feature-visual">
+                <div class="artists-orbit">
+                  <div class="artists-orbit-text">Festival de motor + DJ set</div>
+                </div>
+
+                <button class="btn artists-cta" id="openArtistsModalBtn">Ver artistas confirmados 🎤</button>
+              </div>
             </div>
-          </div>
-        </div>
-
-        <div class="feature-grid">
-          <div class="feature-card">
-            <h3>🏁 Lanzadas de cuarto de milla</h3>
-            <p>
-              Una de las partes más fuertes del día, con toda la adrenalina de cada salida.
-            </p>
-          </div>
-
-          <div class="feature-card">
-            <h3>🚘 Exposición de coches</h3>
-            <p>
-              Coches llamativos y una imagen mucho más potente para asistentes, público y redes.
-            </p>
-          </div>
-
-          <div class="feature-card">
-            <h3>🎤 Escenario principal</h3>
-            <p>
-              Artistas confirmados en directo para reforzar la parte musical y visual del evento.
-            </p>
-          </div>
-
-          <div class="feature-card">
-            <h3>🎧 DJ Kifero</h3>
-            <p>
-              Presencia especial en cabina para mantener el ambiente arriba durante toda la jornada.
-            </p>
-          </div>
-
-          <div class="feature-card">
-            <h3>🍖 Parrillas y bebidas</h3>
-            <p>
-              Habrá barbacoa, pollo, cubatas y bebidas de todo tipo dentro del recinto.
-            </p>
-          </div>
-
-          <div class="feature-card">
-            <h3>🚫 Norma importante</h3>
-            <p>
-              No se podrá acceder con comida ni bebida del exterior.
-            </p>
-          </div>
-        </div>
-
-        <div class="gallery-grid">
-          <div class="gallery-card">
-            <div class="gallery-image">
-              <img src="carreras.jpg" alt="Zona de carreras y lanzadas" />
-            </div>
-            <div class="gallery-copy">
-              <h3>Carreras y lanzadas</h3>
-              <p>
-                Una imagen potente y toda la emoción de cada salida para que la parte de motor se vea a lo grande.
-              </p>
-            </div>
-          </div>
-
-          <div class="gallery-card">
-            <div class="gallery-image">
-              <img src="expo.jpg" alt="Exposición de coches" />
-            </div>
-            <div class="gallery-copy">
-              <h3>Exposición de coches</h3>
-              <p>
-                La exposición añade valor visual al evento y refuerza su presencia como experiencia completa.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="promo-strip">
-          <div class="promo-thumb">
-            <img
-              src="b7664b78-d03a-48ca-8934-cfb251c56930.JPG"
-              class="zoomable"
-              data-full="b7664b78-d03a-48ca-8934-cfb251c56930.JPG"
-              alt="Promoción"
-            />
-          </div>
-
-          <div class="promo-text">
-            <h3>Imágenes promocionales</h3>
-            <p>Pulsa sobre las imágenes para verlas en grande.</p>
-          </div>
-
-          <div class="promo-thumb">
-            <img
-              src="minirulas2.jpg"
-              class="zoomable"
-              data-full="minirulas2.jpg"
-              alt="Promoción"
-            />
           </div>
         </div>
       </div>
@@ -2186,60 +896,29 @@ select:focus{
 
     <section id="ubicacion">
       <div class="wrap">
-        <div class="section-top">
+        <div class="location-hero">
           <h2>Ubicación del evento</h2>
-          <p class="sub">
-            El evento se celebrará en <strong>Aeródromo de Valdelaguna "Valle de la Laguna", 28391 Valdelaguna, Madrid, España</strong>, el <strong>sábado 13 de junio de 11:00h a 23:00h</strong>.
-          </p>
+          <p>El evento se celebrará en <strong>Aeródromo Aerobalas</strong>, en Casas de los Pinos, Cuenca, con jornada completa de 11:00h a 23:00h.</p>
         </div>
 
         <div class="map-grid">
-          <div class="map-card">
-            <div class="section-kicker">📍 Punto oficial</div>
-            <h3>Aeródromo de Valdelaguna "Valle de la Laguna"</h3>
-            <p><strong>Dirección:</strong> Aeródromo de Valdelaguna "Valle de la Laguna", 28391 Valdelaguna, Madrid, España</p>
-            <p><strong>Día:</strong> Sábado 13 de junio de 2026</p>
+          <div class="map-card map-copy">
+            <div class="location-label">📍 Punto oficial</div>
+            <h3>Aeródromo Aerobalas</h3>
+            <p><strong>Dirección:</strong> Aeródromo Aerobalas, Casas de los Pinos, Cuenca.</p>
             <p><strong>Horario:</strong> 11:00h a 23:00h</p>
-            <p>
-              Aquí se celebrará todo: lanzadas, exposición, artistas, DJ Kifero y la zona de comida con parrillas.
-            </p>
+            <p>Aquí se celebrará todo: lanzadas, exposición y la zona de comida.</p>
 
-            <div class="alert-card" style="margin-top:18px;">
-              🚫 Recuerda: no se puede entrar con bebida ni comida al recinto.
-            </div>
+            <div class="location-warning">🚫 Recuerda: no se puede entrar con comida ni bebida del exterior. DNI físico obligatorio 100%.</div>
 
-            <div class="gallery-card" style="margin-top:18px;">
-              <div class="gallery-image">
-                <img
-                  src="fotoaerodromo.jpg"
-                  alt="Aeródromo mejorado"
-                  class="zoomable"
-                  data-full="fotoaerodromo.jpg"
-                />
-              </div>
-              <div class="gallery-copy">
-                <h3>Aeródromo mejorado</h3>
-                <p>
-                  Nueva imagen del aeródromo tras las mejoras realizadas en el recinto.
-                </p>
-              </div>
-            </div>
-
-            <div class="hero-actions" style="margin-top:18px;">
-              <a class="btn-dark" href="https://maps.google.com/?q=Aeródromo+de+Valdelaguna+Valle+de+la+Laguna" target="_blank" rel="noopener">
-                Abrir ubicación en Google Maps
-              </a>
+            <div class="btn-row" style="margin-top:18px">
+              <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Aeródromo+Aerobalas+Casas+de+los+Pinos+Cuenca" target="_blank" rel="noopener">Abrir ubicación en Google Maps</a>
             </div>
           </div>
 
           <div class="map-embed">
-            <iframe
-              src="https://www.google.com/maps?q=40.15839984851003,-3.3813783506216644&z=17&t=k&output=embed"
-              allowfullscreen=""
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-          </div>
+             <iframe src="https://maps.google.com/maps?q=Aeródromo%20Aerobalas%20Casas%20de%20los%20Pinos%20Cuenca&t=k&z=16&ie=UTF8&iwloc=&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+		  </div>
         </div>
       </div>
     </section>
@@ -2247,47 +926,61 @@ select:focus{
     <section id="entradas">
       <div class="wrap">
         <div class="section-top">
-          <h2>Entradas</h2>
-          <p class="sub">
-            Compra online las entradas normales. Máximo <strong>2000 entradas por tipo</strong>: hasta 2000 entradas de persona o hasta 2000 entradas de coche. La entrada VIP no se compra directamente desde la web.
-          </p>
+          <div class="section-kicker">Entradas</div>
+          <h2>Tipos de entrada</h2>
+          <p class="sub">La entrada VIP no se compra por la web.</p>
         </div>
 
-        <div class="ticket-grid">
-          <div class="ticket-box">
-            <span class="ticket-tag">General</span>
+        
+<div class="important-box" style="margin-bottom:20px;border:2px solid rgba(255,90,31,.6);background:rgba(255,40,0,.12);">
+  <h3>⚠️ IMPORTANTE · LANZADAS</h3>
+  <div class="important-list">
+    <div>🚗 Solo podrán lanzar aquellos que hayan pagado la entrada de coche.</div>
+    <div>➕ Si quieres lanzar con un coche que no es tuyo, tendrás que pagar un suplemento de 10€.</div>
+    <div>💸 Este suplemento se paga únicamente en taquilla y en efectivo.</div>
+  </div>
+</div>
+
+<div class="ticket-grid">
+          <div class="ticket-card">
+            <span class="ticket-tag">Público</span>
             <h3>Entrada por persona</h3>
             <div class="ticket-price">12€ <span>/ persona</span></div>
             <div class="ticket-list">
-              <div>Incluye acceso al evento</div>
-              <div>Incluye al conductor del coche que lanza</div>
-              <div>Acceso general a toda la jornada</div>
-              <div>Máximo 2000 entradas</div>
+              <div>Acceso general al evento elegido</div>
+              <div>Compra por Bizum o reserva para taquilla</div>
+              <div>Taquilla solo efectivo</div>
             </div>
           </div>
-
-          <div class="ticket-box">
-            <span class="ticket-tag">Vehículo</span>
-            <h3>Entrada coche normal</h3>
-            <div class="ticket-price">10€ <span>/ coche</span></div>
+          <div class="ticket-card">
+            <span class="ticket-tag">Lanzadas</span>
+            <h3>Coche que lanza</h3>
+            <div class="ticket-price">30€ <span>/ coche</span></div>
             <div class="ticket-list">
-              <div>Acceso con coche normal</div>
-              <div>Participación según organización</div>
-              <div>Compra directa disponible en la web</div>
-              <div>Máximo 2000 entradas</div>
+              <div>Acceso para coche participante</div>
+              <div>Compra por Bizum o reserva para taquilla</div>
+              <div>Taquilla solo efectivo</div>
             </div>
           </div>
-
-          <div class="ticket-box vip-box">
+          <div class="ticket-card">
             <span class="ticket-tag">VIP</span>
-            <h3>Entrada VIP</h3>
-            <div class="ticket-price">15€ <span>/ coche VIP</span></div>
+            <h3>VIP exposición</h3>
+            <div class="ticket-price">40€ <span>/ coche</span></div>
             <div class="ticket-list">
-              <div>Para coches exclusivos y de alta gama con muchos CV</div>
-              <div>Lanzadas más rápidas que la entrada normal</div>
-              <div>Espacio reservado en la nave verde que se ve en las fotos</div>
-              <div>No se compra en la web</div>
-              <div>Para entrada VIP escribe al teléfono <strong>677493837</strong></div>
+              <div>No disponible en la web</div>
+              <div>Gestión directa por teléfono</div>
+              <div>2 y 16 de mayo: cupo máximo 50</div>
+            </div>
+          </div>
+		  
+          <div class="ticket-card">
+            <span class="ticket-tag">Bono</span>
+            <h3>Bono 3 entradas</h3>
+            <div class="ticket-price">30€ <span>/ persona</span></div>
+            <div class="ticket-list">
+              <div>Incluye 2 de mayo, 16 de mayo y 13 de junio</div>
+              <div>Compra por Bizum o reserva para taquilla</div>
+              <div>Taquilla solo efectivo</div>
             </div>
           </div>
         </div>
@@ -2297,86 +990,102 @@ select:focus{
     <section id="comprar">
       <div class="wrap">
         <div class="section-top">
-          <h2>Compra tu entrada</h2>
-          <p class="sub">
-            Elige tu entrada disponible y completa los datos para dejar tu pedido listo.
-          </p>
+          <div class="section-kicker">Comprar</div>
+          <h2>Compra o reserva</h2>
+          <p class="sub">Rellena tus datos y después pulsa el botón para ir al siguiente paso.</p>
         </div>
 
         <div class="buy-grid">
-          <div class="panel">
-            <div class="form-grid">
-              <div class="full">
-                <label for="ticketType">Tipo de entrada</label>
-                <select id="ticketType">
-                  <option value="PERSONA">Entrada por persona · 12€</option>
-                  <option value="COCHE">Entrada coche normal · 10€</option>
-                </select>
-                <div class="inline-note" id="entryInfo"></div>
+          <div>
+            <div class="panel">
+              <div class="form-grid">
+                <div>
+                  <label for="eventDateSelect">Evento</label>
+                  <select id="eventDateSelect">
+                    <option value="2 de mayo">2 de mayo</option>
+                    <option value="16 de mayo">16 de mayo</option>
+                    <option value="13 de junio">13 de junio</option>
+                  </select>
+                  <div class="inline-note" id="eventInfo"></div>
+                </div>
+                <div>
+                  <label for="ticketType">Tipo de entrada</label>
+                  <select id="ticketType">
+                    <option value="PUBLICO">Entrada por persona</option>
+                    <option value="LANZADAS">Coche que lanza</option>
+                    <option value="BONO">Bono 3 entradas · 30€</option>
+                    <option value="VIP">VIP exposición · solo teléfono</option>
+                  </select>
+                  <div class="inline-note" id="entryInfo"></div>
+
+<div class="inline-note" style="margin-top:10px;border:1px solid rgba(255,90,31,.25);background:rgba(255,90,31,.06);">
+  🚗 Lanzadas: solo con entrada de coche · +10€ si usas coche ajeno (taquilla, efectivo)
+</div>
+
+                </div>
+                <div>
+                  <label for="qty">Cantidad</label>
+                  <input type="number" id="qty" min="1" max="200" value="1" />
+                </div>
+                <div>
+                  <label for="paymentMethod">Forma de pago</label>
+                  <select id="paymentMethod">
+                    <option value="BIZUM">Bizum</option>
+                    <option value="TAQUILLA">Reserva y pago en taquilla · solo efectivo</option>
+                  </select>
+                  <div class="inline-note" id="paymentInfo"></div>
+                </div>
+                <div>
+                  <label for="name">Nombre y apellidos</label>
+                  <input type="text" id="name" placeholder="Tu nombre completo" />
+                </div>
+                <div>
+                  <label for="dni">DNI</label>
+                  <input type="text" id="dni" placeholder="12345678Z" />
+                </div>
+                <div class="full">
+                  <label for="email">Correo electrónico</label>
+                  <input type="email" id="email" placeholder="tucorreo@email.com" />
+                </div>
               </div>
 
-              <div>
-                <label for="qty">Cantidad</label>
-                <input type="number" id="qty" min="1" max="2000" value="1" />
+              <div class="wide-bar">
+                <div>
+                  <strong>Bono 3 entradas · 30€</strong>
+                  <p>Incluye 2 de mayo, 16 de mayo y 13 de junio. Si eliges taquilla, el pago en el evento es solo en efectivo.</p>
+                </div>
               </div>
 
-              <div>
-                <label for="paymentMethod">Método de pago</label>
-                <select id="paymentMethod">
-                  <option value="BIZUM">Bizum</option>
-                  <option value="TAQUILLA">Pagar en taquilla</option>
-                </select>
-                <div class="inline-note" id="paymentInfo"></div>
-              </div>
-
-              <div>
-                <label for="name">Nombre y apellidos</label>
-                <input type="text" id="name" placeholder="Tu nombre completo" />
-              </div>
-
-              <div>
-                <label for="dni">DNI</label>
-                <input type="text" id="dni" placeholder="12345678Z" />
-              </div>
-
-              <div class="full">
-                <label for="email">Correo electrónico</label>
-                <input type="email" id="email" placeholder="tucorreo@email.com" />
-              </div>
+              <div class="msg" id="msg"></div>
             </div>
-
-            <div class="msg" id="msg"></div>
           </div>
 
           <div class="summary-sticky">
-            <div class="side-box">
+            <div class="side-card">
               <h3>Resumen</h3>
-              <p style="color:#dcdcdc;line-height:1.7">
-                Método de pago seleccionado: <strong id="summaryPayment">Bizum</strong>
-              </p>
               <div class="summary-box" id="summaryBox"></div>
-
-              <div class="btn-row">
-                <button class="btn" id="btnGoPay">Ir a pagar con Bizum</button>
-                <a class="btn-ghost" href="#entradas">Ver entradas</a>
+              <div class="btn-row" style="margin-top:18px">
+                <button class="btn" id="btnCheckout">Ir al siguiente paso</button>
               </div>
             </div>
 
-            <div class="side-box">
-              <h3>Información importante</h3>
-              <p style="color:#d8d8d8;line-height:1.8">
-                📅 <strong>Sábado 13 de junio</strong> · ⏰ <strong>11:00h a 23:00h</strong>
-              </p>
-              <p style="color:#d8d8d8;line-height:1.8;margin-top:10px">
-                📍 <strong>Camino de los Tintos, 28391 Valdelaguna, Madrid, España</strong>
-              </p>
-              <p style="color:#d8d8d8;line-height:1.8;margin-top:10px">
-                🎟️ <strong>Máximo 2000 entradas por tipo</strong>
-              </p>
-              <p style="color:#d8d8d8;line-height:1.8;margin-top:10px">
-                🚫 No se podrá entrar con comida ni bebida del exterior.
-              </p>
+            <div class="contact-card" id="vipContactCard" style="display:none">
+              <h3>VIP por teléfono</h3>
+              <p>La entrada VIP no se compra por la web. Para coger plaza VIP escribe directamente al número indicado.</p>
+              <div class="btn-row" style="margin-top:18px">
+                <a class="contact-btn" id="vipPhoneBtn" href="#" target="_blank" rel="noopener">Escribir al 677493837</a>
+              </div>
             </div>
+			
+              <div class="important-box">
+                <h3>Información importante</h3>
+                <div class="important-list">
+                  <div><span>🗓️</span><span>Sábado 13 de junio · 11:00h a 23:00h</span></div>
+                  <div><span>📍</span><span>Aeródromo Aerobalas · Casas de los Pinos, Cuenca</span></div>
+                  <div><span>🪪</span><span>DNI físico obligatorio 100%</span></div>
+                  <div><span>🚫</span><span>No se podrá entrar con comida ni bebida del exterior.</span></div>
+                </div>
+              </div>
           </div>
         </div>
       </div>
@@ -2385,622 +1094,552 @@ select:focus{
     <section id="redes">
       <div class="wrap">
         <div class="section-top">
+          <div class="section-kicker">Instagram</div>
           <h2>Instagram oficial</h2>
-          <p class="sub">
-            Síguenos para ver novedades, artistas, horarios, ubicación, DJ Kifero, reels del evento y contenido exclusivo.
-          </p>
+          <p class="sub">Novedades, horarios, ubicación, clips y contenido de cada fecha.</p>
         </div>
 
         <div class="instagram-shell">
           <div class="instagram-grid">
             <div class="instagram-copy">
-              <div class="instagram-kicker">📲 Redes oficiales</div>
               <h3>Síguenos en Instagram</h3>
-              <p>
-                Aquí se subirá toda la información importante del evento: artistas, horarios, ubicación, vídeos de lanzadas, exposición, DJ Kifero y contenido exclusivo.
-              </p>
-
+              <p>Ahí se sube la información de horarios, ubicación, vídeos, fotos, novedades y contenido de los eventos.</p>
               <div class="instagram-points">
-                <div class="instagram-point">🔥 Reels y clips del evento</div>
-                <div class="instagram-point">📍 Ubicación y horarios</div>
+                <div class="instagram-point">📍 Horarios y ubicación</div>
                 <div class="instagram-point">🎤 Novedades de artistas y DJ</div>
-                <div class="instagram-point">🚗 Fotos, coches y ambiente</div>
+                <div class="instagram-point">🚗 Vídeos y coches</div>
+                <div class="instagram-point">📸 Fotos del ambiente</div>
               </div>
-
-              <div class="hero-actions">
-                <a class="insta-btn" href="https://www.instagram.com/pistonesxracing/" target="_blank" rel="noopener">Ir al Instagram oficial</a>
-                <a class="btn-ghost" href="https://www.instagram.com/dj.kifero?igsh=eTB4OGVvbDc4aTVi" target="_blank" rel="noopener">Instagram DJ Kifero</a>
+              <div class="btn-row" style="margin-top:22px">
+                <a class="btn" href="https://www.instagram.com/pistonesxracing/" target="_blank" rel="noopener">Ir al Instagram oficial</a>
               </div>
             </div>
-
             <div class="instagram-visual">
               <div class="phone">
                 <div class="phone-screen">
-                  <div class="insta-topbar">
-                    <span>Instagram</span>
-                    <span>@pistonesxracing</span>
-                  </div>
-
+                  <div class="insta-topbar"><span>Instagram</span><span>@pistonesxracing</span></div>
                   <div class="insta-post">
-                    <div class="insta-profile">
-                      <div class="insta-avatar"></div>
-                      <div class="insta-user">
-                        <strong>pistonesxracing</strong>
-                        <span>Evento de motor · Show en directo</span>
-                      </div>
-                    </div>
-
                     <div class="insta-media"></div>
-
-                    <div class="insta-actions">
-                      <span>❤ 12.4k</span>
-                      <span>💬 1.2k</span>
-                      <span>↗ Compartir</span>
-                    </div>
-
-                    <div class="insta-caption">
-                      <strong>pistonesxracing</strong> Sábado 13 de junio · 11:00h a 23:00h · Aeródromo de Valdelaguna "Valle de la Laguna", 28391 Valdelaguna, Madrid.
-                      Artistas, DJ Kifero, motor, comida y ambiente. 🔥🏁
-                    </div>
+                    <div class="insta-caption"><strong>@pistonesxracing</strong> Toda la información importante de cada evento en un solo sitio.</div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+                </div>
       </div>
     </section>
   </main>
 
-  <section class="pay-screen" id="payScreen">
+  <div class="artists-modal" id="artistsModal">
+    <div class="artists-modal-shell">
+      <div class="artists-modal-head">
+        <h3>Artistas confirmados</h3>
+        <button class="artists-close" id="closeArtistsModalBtn" type="button">×</button>
+      </div>
+
+      <div class="artists-modal-grid">
+        <div class="artist-modal-card">
+          <img src="siriako.jpeg" alt="Siriako" />
+          <div class="gallery-copy">
+            <h4>Siriako</h4>
+            <p>Confirmado para el 13 de junio.</p>
+          </div>
+        </div>
+
+        <div class="artist-modal-card">
+          <img src="elmega.jpeg" alt="El Mega" />
+          <div class="gallery-copy">
+            <h4>El Mega</h4>
+            <p>Confirmado para el 13 de junio.</p>
+          </div>
+        </div>
+
+        <div class="artist-modal-card">
+          <img src="davidvmr.jpeg" alt="DavidVMR" style="object-position:center 18%;" />
+          <div class="gallery-copy">
+            <h4>DavidVMR</h4>
+            <p>Confirmado para el 13 de junio.</p>
+          </div>
+        </div>
+
+        <div class="artist-modal-card">
+          <img src="panadomird.jpg" alt="Pana Domi RD" />
+          <div class="gallery-copy">
+            <h4>Pana Domi RD</h4>
+            <p>Confirmado para el 13 de junio.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pay-overlay" id="payOverlay">
     <div class="pay-wrap">
       <div class="pay-head">
-        <h2>Finalizar pago</h2>
-        <p id="payMethodNotice">
-          Has elegido Bizum. Envía el importe exacto al número indicado y guarda el pedido.
-        </p>
+        <h2 id="payTitle">Finalizar pedido</h2>
+        <p id="paySubtitle"></p>
       </div>
-
       <div class="pay-card">
         <h3>Resumen del pedido</h3>
-        <div class="summary-box" id="payOrderSummary"></div>
-
-        <div class="bizum-box">
+        <div class="pay-box" id="paySummary"></div>
+        <div class="bizum-box" id="bizumBox" style="display:none">
           <div>Paga por Bizum al número:</div>
-          <div class="bizum-number" id="bizumPhone">638156130</div>
-          <div class="btn-row" style="justify-content:center">
-            <button class="btn-ghost" id="copyBizum">Copiar número</button>
+          <div class="bizum-number" id="bizumNumber">677493837</div>
+          <div class="btn-row" style="justify-content:center;margin-top:10px">
+            <button class="btn-dark" id="copyBizumBtn" type="button">Copiar número</button>
           </div>
         </div>
-
-        <div class="btn-row">
-          <button class="btn" id="btnPaid">Ya he hecho el pago</button>
-          <button class="btn-ghost" id="btnBack">Volver</button>
-        </div>
-
-        <div class="msg" id="paidMsg"></div>
-      </div>
-    </div>
-  </section>
-
-  <div class="lightbox" id="lightbox">
-    <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar imagen">×</button>
-    <img id="lightboxImg" src="" alt="Imagen ampliada" />
-  </div>
-
-  <div class="floating-buy" id="floatingBuy">
-    <a href="#comprar">Comprar entradas</a>
-  </div>
-
-  <footer class="footer">
-    PistonesXRacing · Evento de motor, exposición, DJ y show en directo
-  </footer>
-
-  <div class="artists-modal" id="artistsModal">
-    <div class="artists-box">
-      <button class="artists-close" id="closeArtists">✕</button>
-
-      <h2>Artistas confirmados</h2>
-
-      <div class="gallery-grid">
-        <div class="gallery-card">
-          <div class="gallery-image">
-            <img src="siriako.jpeg" class="artist-siriako" alt="Siriako">
-          </div>
-          <div class="gallery-copy">
-            <h3>Siriako</h3>
-          </div>
-        </div>
-
-        <div class="gallery-card">
-          <div class="gallery-image">
-            <img src="elmega.jpeg" class="artist-mega" alt="El Mega">
-          </div>
-          <div class="gallery-copy">
-            <h3>El Mega</h3>
-          </div>
-        </div>
-
-        <div class="gallery-card">
-          <div class="gallery-image">
-            <img src="davidvmr.jpeg" class="artist-davidvmr" alt="DavidVMR">
-          </div>
-          <div class="gallery-copy">
-            <h3>DavidVMR</h3>
-          </div>
-        </div>
-
-        <div class="gallery-card">
-          <div class="gallery-image">
-            <img src="panadomird.jpg" class="artist-panadomi" alt="Pana Domi">
-          </div>
-          <div class="gallery-copy">
-            <h3>Pana Domi</h3>
-          </div>
-        </div>
-
-        <div class="gallery-card">
-          <div class="gallery-image">
-            <img src="djkifero.jpeg" class="artist-kifero" alt="DJ Kifero">
-          </div>
-          <div class="gallery-copy">
-            <h3>DJ Kifero</h3>
-            <p style="margin-top:8px;color:#d8d8d8;line-height:1.7;">
-              Instagram:
-              <a href="https://www.instagram.com/dj.kifero?igsh=eTB4OGVvbDc4aTVi" target="_blank" rel="noopener" style="color:#ff8d61;font-weight:900;">
-                @dj.kifero
-              </a>
-            </p>
-          </div>
+        <div class="btn-row" style="margin-top:18px">
+          <button class="btn" id="confirmOrderBtn" type="button">Enviar pedido</button>
+          <button class="btn-dark" id="closePayBtn" type="button">Volver</button>
         </div>
       </div>
     </div>
   </div>
+
+  <footer class="footer">PistonesXRacing</footer>
 
   <script>
-    const EVENT_DATE = new Date("2026-06-13T11:00:00").getTime();
-    const BIZUM_PHONE = "677493837";
-    const SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxTr-mEVOHv7GO0n4unPkbJmPbOnzEf1gv6WxtqU3iWtwIJRU5C7CwVGheJzoaQkeOLXw/exec";
-    const MAX_QTY_PER_TYPE = 2000;
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycby1dl8gTdYP1_GTncaoOmwe_vx3XuoRJtOBMHlkFS01GOP3UFjHGHc8Mnf-A-HzGN61/exec";
+    const BIZUM_NUMBER = "677493837";
+    const PHONE_NUMBER = "34677493837";
+
+    const EVENT_CONFIG = {
+      "2 de mayo": {
+        date: "2026-05-02T11:00:00",
+        onlinePublicLimit: 500,
+        cashPublicLimit: 1000,
+        vipLimit: 50,
+        ticketLabel: "2 de mayo"
+      },
+      "16 de mayo": {
+        date: "2026-05-16T11:00:00",
+        onlinePublicLimit: 1000,
+        cashPublicLimit: 1500,
+        vipLimit: 50,
+        ticketLabel: "16 de mayo"
+      },
+      "13 de junio": {
+        date: "2026-06-13T11:00:00",
+        onlinePublicLimit: Infinity,
+        cashPublicLimit: Infinity,
+        vipLimit: Infinity,
+        ticketLabel: "13 de junio"
+      },
+      "Bono 3": {
+        date: "2026-05-02T11:00:00",
+        onlinePublicLimit: Infinity,
+        cashPublicLimit: Infinity,
+        vipLimit: 0,
+        ticketLabel: "Bono 3"
+      }
+    };
+
+    const usedCounters = {
+      "2 de mayo": {bizumPublic:0,cashPublic:0,vip:0},
+      "16 de mayo": {bizumPublic:0,cashPublic:0,vip:0},
+      "13 de junio": {bizumPublic:0,cashPublic:0,vip:0},
+      "Bono 3": {bizumPublic:0,cashPublic:0,vip:0}
+    };
 
     const PRICES = {
-      PERSONA: {
-        name: "Entrada por persona",
-        price: 12,
-        info: "Incluye acceso al evento. También incluye al conductor del coche que lanza. Máximo 2000 entradas."
-      },
-      COCHE: {
-        name: "Entrada coche normal",
-        price: 10,
-        info: "Entrada para coche normal. La entrada VIP no se compra desde esta web. Máximo 2000 entradas."
-      }
+      PUBLICO: 12,
+      LANZADAS: 30,
+      BONO: 30,
+      VIP: 40
     };
 
-    const PAYMENT_METHODS = {
-      BIZUM: {
-        name: "Bizum",
-        info: "Haz el pago por Bizum y después guarda tu pedido como pendiente de validación."
-      },
-      TAQUILLA: {
-        name: "Pagar en taquilla",
-        info: "Reserva online y paga directamente en taquilla el día del evento."
-      }
+    const TYPE_NAMES = {
+      PUBLICO: "Entrada por persona",
+      LANZADAS: "Coche que lanza",
+      BONO: "Bono 3 entradas",
+      VIP: "VIP exposición"
     };
 
-    const $ = (id) => document.getElementById(id);
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.event-panel');
+    const nav = document.getElementById('nav');
+    const menuBtn = document.getElementById('menuBtn');
+    const logoHome = document.getElementById('logoHome');
 
-    function euro(n){
-      return new Intl.NumberFormat("es-ES", {
-        style: "currency",
-        currency: "EUR"
-      }).format(Number(n || 0));
+    const eventSelect = document.getElementById('eventDateSelect');
+    const ticketType = document.getElementById('ticketType');
+    const qty = document.getElementById('qty');
+    const paymentMethod = document.getElementById('paymentMethod');
+    const nameInput = document.getElementById('name');
+    const dniInput = document.getElementById('dni');
+    const emailInput = document.getElementById('email');
+    const eventInfo = document.getElementById('eventInfo');
+    const entryInfo = document.getElementById('entryInfo');
+    const paymentInfo = document.getElementById('paymentInfo');
+    const summaryBox = document.getElementById('summaryBox');
+    const msg = document.getElementById('msg');
+    const btnCheckout = document.getElementById('btnCheckout');
+    const vipContactCard = document.getElementById('vipContactCard');
+    const vipPhoneBtn = document.getElementById('vipPhoneBtn');
+
+    const payOverlay = document.getElementById('payOverlay');
+    const payTitle = document.getElementById('payTitle');
+    const paySubtitle = document.getElementById('paySubtitle');
+    const paySummary = document.getElementById('paySummary');
+    const bizumBox = document.getElementById('bizumBox');
+    const bizumNumber = document.getElementById('bizumNumber');
+    const copyBizumBtn = document.getElementById('copyBizumBtn');
+    const confirmOrderBtn = document.getElementById('confirmOrderBtn');
+    const closePayBtn = document.getElementById('closePayBtn');
+
+    const artistsModal = document.getElementById('artistsModal');
+    const openArtistsModalBtn = document.getElementById('openArtistsModalBtn');
+    const closeArtistsModalBtn = document.getElementById('closeArtistsModalBtn');
+
+    vipPhoneBtn.href = `https://wa.me/${PHONE_NUMBER}`;
+    bizumNumber.textContent = BIZUM_NUMBER;
+
+    const state = {
+      eventName: eventSelect.value,
+      type: ticketType.value,
+      qty: Number(qty.value || 1),
+      paymentMethod: paymentMethod.value,
+      unit: PRICES[ticketType.value],
+      total: Number(qty.value || 1) * PRICES[ticketType.value]
+    };
+
+    function euro(value){
+      return `${Number(value).toFixed(2).replace('.', ',')} €`;
     }
 
-    function showMsg(text, type="ok"){
-      const el = $("msg");
-      el.className = "msg " + type;
-      el.textContent = text;
+    function getUnitPrice(eventName, type, paymentMethod){
+      if(type === 'PUBLICO' && eventName === '13 de junio' && paymentMethod === 'TAQUILLA') return 10;
+      return PRICES[type] || 0;
     }
 
-    function clearMsg(){
-      const el = $("msg");
-      el.className = "msg";
-      el.textContent = "";
+    function getMethodLabel(){
+      if(state.type === 'VIP') return 'Teléfono';
+      return state.paymentMethod === 'TAQUILLA' ? 'Reserva y pago en taquilla · solo efectivo' : 'Bizum';
     }
 
-    function showPaidMsg(text, type="ok"){
-      const el = $("paidMsg");
-      el.className = "msg " + type;
-      el.textContent = text;
-      el.style.display = "block";
+    function showMessage(text, type = 'ok'){
+      msg.className = `msg ${type}`;
+      msg.textContent = text;
     }
 
-    function normalizeQty(){
-      const qtyInput = $("qty");
-      let value = parseInt(qtyInput.value || "1", 10);
-
-      if (isNaN(value) || value < 1) value = 1;
-      if (value > MAX_QTY_PER_TYPE) value = MAX_QTY_PER_TYPE;
-
-      qtyInput.value = value;
-      qtyInput.max = MAX_QTY_PER_TYPE;
+    function clearMessage(){
+      msg.className = 'msg';
+      msg.textContent = '';
     }
 
-    function getOrder(){
-      normalizeQty();
-
-      const type = $("ticketType").value;
-      const qty = Math.max(1, Math.min(MAX_QTY_PER_TYPE, parseInt($("qty").value || "1", 10)));
-      const unit = PRICES[type].price;
-      const total = unit * qty;
-      const paymentMethod = $("paymentMethod").value;
-
-      return {
-        type,
-        typeName: PRICES[type].name,
-        qty,
-        unit,
-        total,
-        paymentMethod,
-        paymentMethodName: PAYMENT_METHODS[paymentMethod].name,
-        name: $("name").value.trim(),
-        email: $("email").value.trim(),
-        dni: $("dni").value.trim().toUpperCase(),
-        createdAt: new Date().toISOString()
-      };
+    function crearCountdown(id, fechaEvento){
+      const el = document.getElementById(id);
+      if(!el) return;
+      function update(){
+        const ahora = new Date();
+        const diff = fechaEvento - ahora;
+        if(diff <= 0){
+          el.textContent = 'EN CURSO';
+          return;
+        }
+        const d = Math.floor(diff / (1000*60*60*24));
+        const h = Math.floor((diff / (1000*60*60)) % 24);
+        const m = Math.floor((diff / (1000*60)) % 60);
+        el.textContent = `${d}d ${h}h ${m}m`;
+      }
+      update();
+      setInterval(update, 1000);
     }
 
-    function validateEmail(email){
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    crearCountdown('countdown2', new Date(EVENT_CONFIG['2 de mayo'].date));
+    crearCountdown('countdown16', new Date(EVENT_CONFIG['16 de mayo'].date));
+    crearCountdown('countdown13', new Date(EVENT_CONFIG['13 de junio'].date));
+
+    function setActiveEventPanel(targetId){
+      tabs.forEach(btn => btn.classList.toggle('active', btn.dataset.target === targetId));
+      panels.forEach(panel => panel.classList.toggle('active', panel.id === targetId));
     }
 
-    function validateDNI(dni){
-      return /^[0-9]{8}[A-Z]$/.test(dni);
+    tabs.forEach(btn => {
+      btn.addEventListener('click', () => setActiveEventPanel(btn.dataset.target));
+    });
+
+    menuBtn.addEventListener('click', () => {
+      nav.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', nav.classList.contains('open') ? 'true' : 'false');
+    });
+
+    logoHome.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+
+    function getCurrentCounters(eventName){
+      return usedCounters[eventName] || {bizumPublic:0,cashPublic:0,vip:0};
     }
 
-    function validate(order){
-      if(!order.name) return "Introduce tu nombre y apellidos.";
-      if(!order.email || !validateEmail(order.email)) return "Introduce un correo válido.";
-      if(!order.dni || !validateDNI(order.dni)) return "Introduce un DNI válido (ejemplo: 12345678Z).";
-      if(order.qty < 1) return "La cantidad debe ser al menos 1.";
-      if(order.qty > MAX_QTY_PER_TYPE) return `Solo puedes comprar un máximo de ${MAX_QTY_PER_TYPE} entradas por tipo.`;
-      return "";
+    function evaluateAvailability(){
+      const eventKey = state.type === 'BONO' ? 'Bono 3' : state.eventName;
+      const cfg = EVENT_CONFIG[eventKey] || EVENT_CONFIG[state.eventName];
+      const used = getCurrentCounters(eventKey);
+      const quantity = Number(state.qty || 0);
+      const result = {ok:true, message:''};
+
+      if(state.type === 'VIP'){
+        result.ok = false;
+        result.message = 'La entrada VIP no se compra por la web. Escríbenos directamente al teléfono.';
+        return result;
+      }
+
+      if(state.paymentMethod === 'BIZUM' && Number.isFinite(cfg.onlinePublicLimit)){
+        const limit = cfg.onlinePublicLimit;
+        if((used.bizumPublic + quantity) > limit){
+          result.ok = false;
+          result.message = 'Las entradas online están agotadas para esa fecha. Solo queda la reserva para pagar en taquilla.';
+          return result;
+        }
+      }
+
+      if(state.paymentMethod === 'TAQUILLA' && Number.isFinite(cfg.cashPublicLimit)){
+        const limit = cfg.cashPublicLimit;
+        if((used.cashPublic + quantity) > limit){
+          result.ok = false;
+          result.message = 'No queda cupo disponible para la reserva de taquilla en esa fecha.';
+          return result;
+        }
+      }
+
+      return result;
     }
 
-    function renderEntryInfo(){
-      const type = $("ticketType").value;
-      const item = PRICES[type];
-      $("entryInfo").innerHTML = `
-        <strong>${item.name} · ${euro(item.price)}</strong><br>
-        ${item.info}
+    function syncState(){
+      state.eventName = eventSelect.value;
+      state.type = ticketType.value;
+      state.qty = Math.max(1, Number(qty.value || 1));
+      qty.value = state.qty;
+      state.paymentMethod = paymentMethod.value;
+      state.unit = getUnitPrice(state.eventName, state.type, state.paymentMethod);
+      state.total = state.qty * state.unit;
+
+      const cfg = EVENT_CONFIG[state.eventName];
+      const used = getCurrentCounters(state.eventName);
+
+      eventInfo.textContent = state.eventName === '13 de junio'
+        ? 'Reserva por taquilla con descuento de 2€ en la entrada por persona. Pago en el evento solo en efectivo.'
+        : 'Compra por Bizum o reserva por la web para pagar en taquilla. Pago en el evento solo en efectivo.';
+
+      const onlineFull = Number.isFinite(cfg.onlinePublicLimit) && used.bizumPublic >= cfg.onlinePublicLimit;
+      const cashFull = Number.isFinite(cfg.cashPublicLimit) && used.cashPublic >= cfg.cashPublicLimit;
+
+      if(state.type === 'PUBLICO'){
+        entryInfo.textContent = state.eventName === '13 de junio'
+          ? 'Entrada general por persona. En taquilla para esta fecha se queda en 10€.'
+          : 'Entrada general por persona.';
+      }else if(state.type === 'LANZADAS'){
+        entryInfo.textContent = 'Acceso para coche que participa en lanzadas.';
+      }else if(state.type === 'BONO'){
+        entryInfo.textContent = 'Incluye 2 de mayo, 16 de mayo y 13 de junio.';
+      }else{
+        entryInfo.textContent = 'La entrada VIP se gestiona por teléfono.';
+      }
+
+      paymentInfo.textContent = state.paymentMethod === 'TAQUILLA'
+        ? (state.eventName === '13 de junio' && state.type === 'PUBLICO'
+            ? 'Reserva por la web. En 13 de junio la entrada por persona en taquilla lleva 2€ de descuento. Pago en el evento solo en efectivo.'
+            : 'Reserva por la web. El pago en el evento es solo en efectivo.')
+        : 'Después de pulsar el botón se abrirá la pantalla de pago por Bizum.';
+
+      vipContactCard.style.display = state.type === 'VIP' ? 'block' : 'none';
+      paymentMethod.disabled = state.type === 'VIP';
+
+      if(state.type === 'VIP'){
+        btnCheckout.textContent = 'Contactar por teléfono';
+      }else if(state.paymentMethod === 'TAQUILLA'){
+        btnCheckout.textContent = 'Reservar y pagar en taquilla';
+      }else{
+        btnCheckout.textContent = 'Ir a pagar con Bizum';
+      }
+
+      if(state.type !== 'VIP' && state.paymentMethod === 'BIZUM' && onlineFull){
+        paymentMethod.value = 'TAQUILLA';
+        state.paymentMethod = 'TAQUILLA';
+        showMessage('Las entradas online están agotadas para esa fecha. Solo queda la reserva para pagar en taquilla.', 'warn');
+      } else if(state.type !== 'VIP' && state.paymentMethod === 'TAQUILLA' && cashFull){
+        showMessage('No queda cupo para la reserva de taquilla en esa fecha.', 'warn');
+      } else if(state.type !== 'VIP'){
+        clearMessage();
+      }
+
+      const orderEventName = state.type === 'BONO' ? 'Bono 3' : state.eventName;
+      summaryBox.innerHTML = `
+        <strong>Evento:</strong> ${orderEventName}<br>
+        <strong>Entrada:</strong> ${TYPE_NAMES[state.type]}<br>
+        <strong>Cantidad:</strong> ${state.qty}<br>
+        <strong>Método:</strong> ${getMethodLabel()}<br>
+        <strong>Total:</strong> ${euro(state.total)}
       `;
     }
 
-    function renderPaymentInfo(){
-      const paymentMethod = $("paymentMethod").value;
-      const item = PAYMENT_METHODS[paymentMethod];
-      $("paymentInfo").innerHTML = `
-        <strong>${item.name}</strong><br>
-        ${item.info}
-      `;
-      $("summaryPayment").textContent = item.name;
-      $("btnGoPay").textContent = paymentMethod === "BIZUM"
-        ? "Ir a pagar con Bizum"
-        : "Reservar y pagar en taquilla";
-    }
-
-    function renderSummary(){
-      const o = getOrder();
-      $("summaryBox").innerHTML = `
-        <b>${o.typeName}</b><br>
-        Método de pago: <b>${o.paymentMethodName}</b><br>
-        Cantidad: <b>${o.qty}</b> <span style="color:#bfbfbf">(máximo ${MAX_QTY_PER_TYPE})</span><br>
-        Precio unitario: <b>${euro(o.unit)}</b><br><br>
-        Total: <b style="color:#ff6a2f">${euro(o.total)}</b>
-      `;
-    }
-
-    function setBtnState(){
-      const o = getOrder();
-      const err = validate(o);
-      $("btnGoPay").disabled = !!err;
-      if(err) showMsg("⚠️ " + err, "err");
-      else clearMsg();
-    }
-
-    async function copyTextFrom(elId){
-      const el = $(elId);
-      const text = (el?.innerText || el?.textContent || "").trim();
-      if(!text) return false;
-
+    async function refreshSummaryFromServer(){
       try{
-        await navigator.clipboard.writeText(text);
-        return true;
-      }catch{
-        const ta = document.createElement("textarea");
-        ta.value = text;
-        document.body.appendChild(ta);
-        ta.select();
-        try{ document.execCommand("copy"); }catch(e){}
-        document.body.removeChild(ta);
-        return true;
-      }
-    }
-
-    function isAppsScriptUrl(url){
-      return typeof url === "string" &&
-        url.startsWith("https://script.google.com/macros/s/") &&
-        url.endsWith("/exec");
-    }
-
-    async function sendToList(payload){
-      if(!isAppsScriptUrl(SHEET_WEBAPP_URL)){
-        throw new Error("Falta pegar la URL real del Apps Script.");
-      }
-
-      const response = await fetch(SHEET_WEBAPP_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "text/plain;charset=utf-8"
-        },
-        body: JSON.stringify(payload)
-      });
-
-      const text = await response.text();
-
-      if(!response.ok){
-        throw new Error("El Apps Script respondió con error.");
-      }
-
-      try{
-        const data = JSON.parse(text);
-        if(data.result !== "success"){
-          throw new Error(data.message || "No se pudo guardar el pedido.");
+        const response = await fetch(`${WEB_APP_URL}?action=summary`, {method:'GET'});
+        const data = await response.json();
+        if(data && data.result === 'success' && data.summary){
+          Object.keys(data.summary).forEach(key => {
+            if(usedCounters[key]) usedCounters[key] = data.summary[key];
+          });
         }
-        return data;
-      }catch{
-        if(text.toLowerCase().includes("success")){
-          return { result: "success" };
-        }
-        throw new Error("Respuesta no válida del Apps Script.");
+      }catch(error){
+        console.warn('No se pudo leer el resumen online.', error);
       }
+      syncState();
     }
 
-    function goMain(){
-      $("payScreen").classList.remove("active");
-      $("mainScreen").classList.remove("hidden");
-      $("floatingBuy").style.display = "flex";
+    function validateForm(){
+      if(state.type === 'VIP') return {ok:false, message:'La entrada VIP se gestiona por teléfono.'};
+      if(!nameInput.value.trim()) return {ok:false, message:'Introduce tu nombre y apellidos.'};
+      if(!dniInput.value.trim()) return {ok:false, message:'Introduce tu DNI.'};
+      if(!emailInput.value.trim()) return {ok:false, message:'Introduce tu correo electrónico.'};
+      const availability = evaluateAvailability();
+      if(!availability.ok) return availability;
+      return {ok:true};
     }
 
-    function goPay(){
-      $("mainScreen").classList.add("hidden");
-      $("payScreen").classList.add("active");
-      $("floatingBuy").style.display = "none";
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    const nav = $("nav");
-    const menuBtn = $("menuBtn");
-
-    menuBtn.addEventListener("click", () => {
-      const open = nav.classList.toggle("open");
-      menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
-    });
-
-    nav.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", () => {
-        nav.classList.remove("open");
-        menuBtn.setAttribute("aria-expanded","false");
-        if ($("payScreen").classList.contains("active")) goMain();
-      });
-    });
-
-    $("logoHome").addEventListener("click", () => {
-      goMain();
-      nav.classList.remove("open");
-      menuBtn.setAttribute("aria-expanded","false");
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      history.replaceState(null, "", "#");
-    });
-
-    const sections = ["evento","ubicacion","entradas","comprar","redes"].map(id => document.getElementById(id)).filter(Boolean);
-    const navLinks = Array.from(nav.querySelectorAll("a"));
-
-    const observer = new IntersectionObserver((entries) => {
-      if ($("payScreen").classList.contains("active")) return;
-      entries.forEach(entry => {
-        if(entry.isIntersecting){
-          const id = entry.target.id;
-          navLinks.forEach(l => l.classList.toggle("active", l.getAttribute("href") === "#" + id));
-        }
-      });
-    }, { rootMargin: "-55% 0px -35% 0px", threshold: 0.01 });
-
-    sections.forEach(s => observer.observe(s));
-
-    async function goToPay(){
-      clearMsg();
-      const o = getOrder();
-      const err = validate(o);
-
-      if(err){
-        showMsg("⚠️ " + err, "err");
+    function openPayOverlay(){
+      const check = validateForm();
+      if(!check.ok){
+        showMessage(check.message, 'warn');
         return;
       }
 
-      if(o.paymentMethod === "TAQUILLA"){
-        const payload = {
-          ...o,
-          paymentMethod: "TAQUILLA",
-          paymentMethodName: "Pagar en taquilla el día del evento",
-          status: "TAQUILLA"
-        };
+      payTitle.textContent = state.paymentMethod === 'TAQUILLA' ? 'Reservar en taquilla' : 'Finalizar pago';
+      paySubtitle.textContent = state.paymentMethod === 'TAQUILLA'
+        ? 'Revisa los datos y pulsa el botón para dejar tu reserva guardada.'
+        : 'Haz el Bizum y después pulsa el botón para guardar tu pedido.';
 
-        try{
-          showMsg("⏳ Guardando tu reserva para taquilla…", "ok");
-          await sendToList(payload);
-          showMsg("✅ Reserva guardada. Pagarás en taquilla el día del evento.", "ok");
-        }catch(error){
-          showMsg("❌ " + error.message, "err");
-        }
-        return;
-      }
-
-      $("payOrderSummary").innerHTML = `
-        <b>Resumen del pedido</b><br>
-        Nombre: <b>${o.name}</b><br>
-        DNI: <b>${o.dni}</b><br>
-        Email: <b>${o.email}</b><br>
-        Entrada: <b>${o.typeName}</b> · Cantidad: <b>${o.qty}</b><br>
-        Método de pago: <b>${o.paymentMethodName}</b><br>
-        Total a pagar: <b style="color:#ff6a2f">${euro(o.total)}</b>
+      paySummary.innerHTML = `
+        <strong>Nombre:</strong> ${nameInput.value.trim()}<br>
+        <strong>DNI:</strong> ${dniInput.value.trim()}<br>
+        <strong>Email:</strong> ${emailInput.value.trim()}<br>
+        <strong>Evento:</strong> ${state.type === 'BONO' ? 'Bono 3' : state.eventName}<br>
+        <strong>Entrada:</strong> ${TYPE_NAMES[state.type]}<br>
+        <strong>Cantidad:</strong> ${state.qty}<br>
+        <strong>Método:</strong> ${getMethodLabel()}<br>
+        <strong>Total:</strong> <span style="color:#ff8c51;font-weight:900">${euro(state.total)}</span>
       `;
 
-      $("bizumPhone").textContent = BIZUM_PHONE;
-      $("payMethodNotice").innerHTML = `✅ Has elegido <b>Bizum</b>. Envía el importe exacto al número indicado y después pulsa el botón de abajo para guardar tu pedido como pendiente.`;
-      $("paidMsg").style.display = "none";
-
-      goPay();
+      bizumBox.style.display = state.paymentMethod === 'BIZUM' ? 'block' : 'none';
+      confirmOrderBtn.textContent = state.paymentMethod === 'TAQUILLA' ? 'Enviar reserva' : 'Enviar pedido';
+      payOverlay.classList.add('open');
     }
 
-    $("btnGoPay").addEventListener("click", goToPay);
+    function closePayOverlay(){
+      payOverlay.classList.remove('open');
+    }
 
-    $("btnBack").addEventListener("click", () => {
-      goMain();
-      $("paidMsg").style.display = "none";
-      window.location.hash = "#comprar";
-    });
-
-    $("copyBizum").addEventListener("click", async () => {
-      const ok = await copyTextFrom("bizumPhone");
-      showPaidMsg(ok ? "✅ Número Bizum copiado." : "❌ No se pudo copiar.", ok ? "ok" : "err");
-    });
-
-    $("btnPaid").addEventListener("click", async () => {
-      const o = getOrder();
-      const err = validate(o);
-
-      if(err){
-        showPaidMsg("⚠️ " + err, "err");
+    async function submitOrder(){
+      const check = validateForm();
+      if(!check.ok){
+        closePayOverlay();
+        showMessage(check.message, 'warn');
         return;
       }
+
+      confirmOrderBtn.disabled = true;
+      confirmOrderBtn.textContent = 'Enviando...';
 
       const payload = {
-        ...o,
-        paymentMethod: "BIZUM",
-        paymentMethodName: "Bizum",
-        status: "PENDIENTE"
+        event: state.type === 'BONO' ? 'Bono 3' : state.eventName,
+        sourceEvent: state.eventName,
+        name: nameInput.value.trim(),
+        dni: dniInput.value.trim(),
+        email: emailInput.value.trim(),
+        typeName: TYPE_NAMES[state.type],
+        typeCode: state.type,
+        qty: state.qty,
+        unit: state.unit,
+        total: state.total,
+        paymentMethod: state.paymentMethod
       };
 
       try{
-        showPaidMsg("⏳ Guardando tu pedido…", "ok");
-        await sendToList(payload);
-        showPaidMsg("✅ Pedido guardado. Tu entrada ha quedado pendiente de validación del Bizum.", "ok");
+        const response = await fetch(WEB_APP_URL, {
+          method:'POST',
+          headers:{'Content-Type':'text/plain;charset=utf-8'},
+          body: JSON.stringify(payload)
+        });
+        const data = await response.json();
+        if(!data || data.result !== 'success') throw new Error(data && data.message ? data.message : 'No se pudo guardar el pedido.');
+
+        closePayOverlay();
+        showMessage(state.paymentMethod === 'TAQUILLA'
+          ? `Reserva guardada correctamente. ID: ${data.id}. Recuerda que el pago en el evento es solo en efectivo.`
+          : `Pedido guardado correctamente. ID: ${data.id}. Cuando se marque como pagado se enviará la confirmación al correo.`, 'ok');
+        await refreshSummaryFromServer();
       }catch(error){
-        showPaidMsg("❌ " + error.message, "err");
+        closePayOverlay();
+        showMessage(error.message || 'No se pudo guardar el pedido.', 'err');
+      }finally{
+        confirmOrderBtn.disabled = false;
+        confirmOrderBtn.textContent = state.paymentMethod === 'TAQUILLA' ? 'Enviar reserva' : 'Enviar pedido';
       }
-    });
+    }
 
-    function tick(){
-      const now = Date.now();
-      const distance = EVENT_DATE - now;
+    function openArtistsModal(){
+      artistsModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
 
-      if(distance <= 0){
-        $("countdown").textContent = "🔥 ¡El evento ya está en marcha!";
+    function closeArtistsModal(){
+      artistsModal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    [eventSelect, ticketType, qty, paymentMethod].forEach(el => el.addEventListener('change', syncState));
+
+    btnCheckout.addEventListener('click', () => {
+      if(state.type === 'VIP'){
+        window.open(`https://wa.me/${PHONE_NUMBER}`, '_blank', 'noopener');
         return;
       }
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-
-      $("countdown").textContent = `${days}d ${hours}h ${minutes}m`;
-    }
-
-    tick();
-    setInterval(tick, 1000);
-
-    ["ticketType","qty","name","email","dni","paymentMethod"].forEach(id => {
-      $(id).addEventListener("input", () => {
-        normalizeQty();
-        renderEntryInfo();
-        renderPaymentInfo();
-        renderSummary();
-        setBtnState();
-      });
+      openPayOverlay();
     });
 
-    renderEntryInfo();
-    renderPaymentInfo();
-    renderSummary();
-    setBtnState();
+    closePayBtn.addEventListener('click', closePayOverlay);
 
-    const floatingBuy = $("floatingBuy");
-
-    function updateFloatingBar(){
-      const payOpen = $("payScreen").classList.contains("active");
-      const y = window.scrollY || window.pageYOffset;
-
-      if(payOpen || y < 220){
-        floatingBuy.style.display = "none";
-      }else{
-        floatingBuy.style.display = "flex";
-      }
-    }
-
-    const lightbox = $("lightbox");
-    const lightboxImg = $("lightboxImg");
-    const lightboxClose = $("lightboxClose");
-
-    document.querySelectorAll(".zoomable").forEach(img => {
-      img.addEventListener("click", () => {
-        const full = img.dataset.full || img.src;
-        lightboxImg.src = full;
-        lightbox.classList.add("open");
-        document.body.style.overflow = "hidden";
-      });
+    payOverlay.addEventListener('click', (e) => {
+      if(e.target === payOverlay) closePayOverlay();
     });
 
-    function closeLightbox(){
-      lightbox.classList.remove("open");
-      lightboxImg.src = "";
-      document.body.style.overflow = "";
-    }
+    confirmOrderBtn.addEventListener('click', submitOrder);
 
-    lightboxClose.addEventListener("click", closeLightbox);
-
-    lightbox.addEventListener("click", (e) => {
-      if(e.target === lightbox) closeLightbox();
-    });
-
-    document.addEventListener("keydown", (e) => {
-      if(e.key === "Escape" && lightbox.classList.contains("open")){
-        closeLightbox();
+    copyBizumBtn.addEventListener('click', async () => {
+      try{
+        await navigator.clipboard.writeText(BIZUM_NUMBER);
+        copyBizumBtn.textContent = 'Copiado';
+        setTimeout(() => copyBizumBtn.textContent = 'Copiar número', 1600);
+      }catch(error){
+        console.warn(error);
       }
     });
 
-    window.addEventListener("scroll", updateFloatingBar, { passive:true });
-    window.addEventListener("load", updateFloatingBar);
-
-    const openArtists = document.getElementById("openArtists");
-    const closeArtists = document.getElementById("closeArtists");
-    const artistsModal = document.getElementById("artistsModal");
-
-    if(openArtists && closeArtists && artistsModal){
-      openArtists.addEventListener("click", () => {
-        artistsModal.classList.add("open");
-      });
-
-      closeArtists.addEventListener("click", () => {
-        artistsModal.classList.remove("open");
-      });
-
-      artistsModal.addEventListener("click", (e)=>{
-        if(e.target === artistsModal){
-          artistsModal.classList.remove("open");
-        }
-      });
+    if(openArtistsModalBtn){
+      openArtistsModalBtn.addEventListener('click', openArtistsModal);
     }
+
+    if(closeArtistsModalBtn){
+      closeArtistsModalBtn.addEventListener('click', closeArtistsModal);
+    }
+
+    artistsModal.addEventListener('click', (e) => {
+      if(e.target === artistsModal) closeArtistsModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape'){
+        closePayOverlay();
+        closeArtistsModal();
+      }
+    });
+
+    syncState();
+    refreshSummaryFromServer();
   </script>
 </body>
 </html>
