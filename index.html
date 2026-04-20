@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PistonesXRacing</title>
+  <link rel="icon" type="image/png" href="pistonesxracing.jpg" />
   <style>
     :root{
       --bg:#050505;
@@ -854,13 +855,13 @@
               <div class="count-card" style="margin-top:18px;">
                 <div class="count-label">Cuenta atrás</div>
                 <div class="countdown" id="countdown13">Cargando...</div>
-                <div class="count-sub">Motor, exposición, lanzadas, artistas y DJ durante toda la jornada.</div>
+                <div class="count-sub">Motor, exposición, lanzadas, artistas y DJ durante toda la jornada. Venta online hasta 1500 entradas; después, compra directa en taquilla el día del evento.</div>
                 <div class="count-fill">
                   <div class="count-fill-title">Info rápida del 13 de junio</div>
                   <div class="count-fill-points">
                     <div>🎤 Artistas confirmados + DJ Kifero</div>
                     <div>🏁 Exposición, lanzadas y jornada completa en pista</div>
-                    <div>💸 Reserva para taquilla con descuento de 2€ en entrada por persona</div>
+                    <div>💸 Online hasta 1500 entradas; después, taquilla el día del evento en efectivo</div>
                   </div>
                 </div>
               </div>
@@ -963,7 +964,7 @@
             <div class="ticket-price">12€ <span>/ persona</span></div>
             <div class="ticket-list">
               <div>Acceso general al evento elegido</div>
-              <div>Compra por Bizum</div>
+              <div>Compra por Bizum o reserva para taquilla</div>
               <div>Taquilla solo efectivo</div>
             </div>
           </div>
@@ -973,7 +974,7 @@
             <div class="ticket-price">30€ <span>/ coche</span></div>
             <div class="ticket-list">
               <div>Acceso para coche participante</div>
-              <div>Compra por Bizum</div>
+              <div>Compra por Bizum o reserva para taquilla</div>
               <div>Taquilla solo efectivo</div>
             </div>
           </div>
@@ -984,17 +985,17 @@
             <div class="ticket-list">
               <div>No disponible en la web</div>
               <div>Gestión directa por teléfono</div>
-              <div>16 de mayo: cupo máximo 30</div>
+              <div>2 y 16 de mayo: cupo máximo 50</div>
             </div>
           </div>
 		  
           <div class="ticket-card">
             <span class="ticket-tag">Bono</span>
             <h3>Bono 2 días</h3>
-            <div class="ticket-price">20€ <span>/ persona</span></div>
+            <div class="ticket-price">30€ <span>/ persona</span></div>
             <div class="ticket-list">
               <div>Incluye 16 de mayo y 13 de junio</div>
-              <div>Compra por Bizum</div>
+              <div>Compra por Bizum o reserva para taquilla</div>
               <div>Taquilla solo efectivo</div>
             </div>
           </div>
@@ -1498,14 +1499,14 @@
           ? 'Las 1000 entradas online del 16 de mayo ya se han agotado. Ahora solo se permite reservar hasta 1500 entradas para pagar en taquilla y en efectivo.'
           : 'De momento solo aparece la compra online. Cuando se agoten las 1000 entradas online, se activará la reserva de hasta 1500 entradas para taquilla y efectivo.';
       }else if(state.eventName === '13 de junio'){
-        eventInfo.textContent = 'El 13 de junio solo permite compra online. No hay reserva para taquilla.';
+        eventInfo.textContent = 'El 13 de junio permite compra online hasta 1500 entradas. Cuando se agoten, las entradas se podrán comprar en taquilla el día del evento, solo en efectivo.';
       }else{
         eventInfo.textContent = 'Evento cancelado por precipitaciones y cambios de temporal.';
       }
 
       if(state.type === 'PUBLICO'){
         entryInfo.textContent = state.eventName === '13 de junio'
-          ? 'Entrada general por persona. Solo disponible online para esta fecha.'
+          ? 'Entrada general por persona. Online hasta completar 1500 entradas. Después, solo venta en taquilla el día del evento.'
           : 'Entrada general por persona.';
       }else if(state.type === 'LANZADAS'){
         entryInfo.textContent = 'Acceso para coche que participa en lanzadas.';
@@ -1519,7 +1520,7 @@
         paymentInfo.textContent = state.eventName === '2 de mayo'
           ? 'Evento cancelado por precipitaciones y cambios de temporal.'
           : state.eventName === '13 de junio'
-          ? 'La venta online de esta fecha está agotada.'
+          ? 'La venta online de esta fecha está agotada. Las entradas restantes se venderán solo en taquilla el día del evento y en efectivo.'
           : 'Ahora mismo no hay un método de pago disponible para esta selección.';
       }else if(state.paymentMethod === 'TAQUILLA'){
         paymentInfo.textContent = 'Reserva por la web. El pago en el evento es solo en efectivo.';
@@ -1544,7 +1545,7 @@
         showMessage(state.eventName === '2 de mayo'
           ? 'El evento del 2 de mayo está cancelado por precipitaciones y cambios de temporal.'
           : state.eventName === '13 de junio'
-          ? 'Las entradas online del 13 de junio están agotadas.'
+          ? 'Las entradas online del 13 de junio están agotadas. Las entradas se podrán comprar en taquilla el día del evento y solo en efectivo.'
           : 'No queda cupo disponible para esta fecha.', 'warn');
       } else if(state.type !== 'VIP' && state.eventName === '16 de mayo' && onlineFull && !cashFull){
         showMessage('Las 1000 entradas online del 16 de mayo ya se han agotado. Solo queda la reserva para taquilla.', 'warn');
