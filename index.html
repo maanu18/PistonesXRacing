@@ -769,12 +769,13 @@
             <div class="event-card">
               <div class="pill">2 de mayo</div>
               <h3>2 de mayo</h3>
-              <p>Jornada de motor con exposición, ambiente, zona de comida y acceso por compra online o reserva para pagar en taquilla.</p>
+              <p style="color:#ff7c7c;font-weight:900;">⚠️ Evento cancelado por precipitaciones y cambios de temporal.</p>
               <div class="event-meta">
                 <div>📅 2 de mayo</div>
                 <div>⏰ 11:00h a 23:00h</div>
                 <div>📍 Aeródromo Aerobalas</div>
                 <div>🎟️ Público · Lanzadas · VIP</div>
+                <div style="color:#ff7c7c;">❌ Evento cancelado</div>
                 <div>💸 Taquilla solo efectivo</div>
               </div>
             </div>
@@ -962,7 +963,7 @@
             <div class="ticket-price">12€ <span>/ persona</span></div>
             <div class="ticket-list">
               <div>Acceso general al evento elegido</div>
-              <div>Compra por Bizum o reserva para taquilla</div>
+              <div>Compra por Bizum</div>
               <div>Taquilla solo efectivo</div>
             </div>
           </div>
@@ -972,7 +973,7 @@
             <div class="ticket-price">30€ <span>/ coche</span></div>
             <div class="ticket-list">
               <div>Acceso para coche participante</div>
-              <div>Compra por Bizum o reserva para taquilla</div>
+              <div>Compra por Bizum</div>
               <div>Taquilla solo efectivo</div>
             </div>
           </div>
@@ -983,17 +984,17 @@
             <div class="ticket-list">
               <div>No disponible en la web</div>
               <div>Gestión directa por teléfono</div>
-              <div>2 y 16 de mayo: cupo máximo 50</div>
+              <div>16 de mayo: cupo máximo 30</div>
             </div>
           </div>
 		  
           <div class="ticket-card">
             <span class="ticket-tag">Bono</span>
-            <h3>Bono 3 entradas</h3>
-            <div class="ticket-price">30€ <span>/ persona</span></div>
+            <h3>Bono 2 días</h3>
+            <div class="ticket-price">20€ <span>/ persona</span></div>
             <div class="ticket-list">
-              <div>Incluye 2 de mayo, 16 de mayo y 13 de junio</div>
-              <div>Compra por Bizum o reserva para taquilla</div>
+              <div>Incluye 16 de mayo y 13 de junio</div>
+              <div>Compra por Bizum</div>
               <div>Taquilla solo efectivo</div>
             </div>
           </div>
@@ -1027,7 +1028,7 @@
                   <select id="ticketType">
                     <option value="PUBLICO">Entrada por persona</option>
                     <option value="LANZADAS">Coche que lanza</option>
-                    <option value="BONO">Bono 3 entradas · 30€</option>
+                    <option value="BONO">Bono 2 días · 20€</option>
                     <option value="VIP">VIP exposición · solo teléfono</option>
                   </select>
                   <div class="inline-note" id="entryInfo"></div>
@@ -1043,10 +1044,7 @@
                 </div>
                 <div>
                   <label for="paymentMethod">Forma de pago</label>
-                  <select id="paymentMethod">
-                    <option value="BIZUM">Bizum</option>
-                    <option value="TAQUILLA">Reserva y pago en taquilla · solo efectivo</option>
-                  </select>
+                  <select id="paymentMethod"></select>
                   <div class="inline-note" id="paymentInfo"></div>
                 </div>
                 <div>
@@ -1065,8 +1063,8 @@
 
               <div class="wide-bar">
                 <div>
-                  <strong>Bono 3 entradas · 30€</strong>
-                  <p>Incluye 2 de mayo, 16 de mayo y 13 de junio. Si eliges taquilla, el pago en el evento es solo en efectivo.</p>
+                  <strong>Bono 2 días · 20€</strong>
+                  <p>Incluye 16 de mayo y 13 de junio. Si eliges taquilla, el pago en el evento es solo en efectivo.</p>
                 </div>
               </div>
 
@@ -1238,17 +1236,17 @@
       },
       "13 de junio": {
         date: "2026-06-13T11:00:00",
-        onlinePublicLimit: Infinity,
-        cashPublicLimit: Infinity,
+        onlinePublicLimit: 1500,
+        cashPublicLimit: 0,
         vipLimit: Infinity,
         ticketLabel: "13 de junio"
       },
-      "Bono 3": {
+      "Bono 2 días": {
         date: "2026-05-02T11:00:00",
         onlinePublicLimit: Infinity,
         cashPublicLimit: Infinity,
         vipLimit: 0,
-        ticketLabel: "Bono 3"
+        ticketLabel: "Bono 2 días"
       }
     };
 
@@ -1256,20 +1254,20 @@
       "2 de mayo": {bizumPublic:0,cashPublic:0,vip:0},
       "16 de mayo": {bizumPublic:0,cashPublic:0,vip:0},
       "13 de junio": {bizumPublic:0,cashPublic:0,vip:0},
-      "Bono 3": {bizumPublic:0,cashPublic:0,vip:0}
+      "Bono 2 días": {bizumPublic:0,cashPublic:0,vip:0}
     };
 
     const PRICES = {
       PUBLICO: 12,
       LANZADAS: 30,
-      BONO: 30,
+      BONO: 20,
       VIP: 40
     };
 
     const TYPE_NAMES = {
       PUBLICO: "Entrada por persona",
       LANZADAS: "Coche que lanza",
-      BONO: "Bono 3 entradas",
+      BONO: "Bono 2 días",
       VIP: "VIP exposición"
     };
 
@@ -1326,7 +1324,6 @@
     }
 
     function getUnitPrice(eventName, type, paymentMethod){
-      if(type === 'PUBLICO' && eventName === '13 de junio' && paymentMethod === 'TAQUILLA') return 10;
       return PRICES[type] || 0;
     }
 
@@ -1388,8 +1385,66 @@
       return usedCounters[eventName] || {bizumPublic:0,cashPublic:0,vip:0};
     }
 
+    function getAvailablePaymentOptions(){
+      if(state.type === 'VIP') return [{value:'BIZUM', label:'Bizum'}];
+
+      const cfg = EVENT_CONFIG[state.eventName] || {};
+      const used = getCurrentCounters(state.eventName);
+      const options = [];
+
+      if(state.eventName === '13 de junio'){
+        if(used.bizumPublic < cfg.onlinePublicLimit){
+          options.push({value:'BIZUM', label:'Bizum'});
+        }
+        return options;
+      }
+
+      if(state.eventName === '16 de mayo'){
+        if(used.bizumPublic < cfg.onlinePublicLimit){
+          options.push({value:'BIZUM', label:'Bizum'});
+        }else if(used.cashPublic < cfg.cashPublicLimit){
+          options.push({value:'TAQUILLA', label:'Reserva y pago en taquilla · solo efectivo'});
+        }
+        return options;
+      }
+
+      if(state.eventName === '2 de mayo'){
+        return options;
+      }
+
+      options.push({value:'BIZUM', label:'Bizum'});
+      options.push({value:'TAQUILLA', label:'Reserva y pago en taquilla · solo efectivo'});
+      return options;
+    }
+
+    function renderPaymentOptions(){
+      const options = getAvailablePaymentOptions();
+      const currentValue = paymentMethod.value;
+      paymentMethod.innerHTML = '';
+
+      if(!options.length){
+        const option = document.createElement('option');
+        option.value = '';
+        option.textContent = 'No disponible';
+        paymentMethod.appendChild(option);
+        paymentMethod.value = '';
+        paymentMethod.disabled = true;
+        return;
+      }
+
+      options.forEach(item => {
+        const option = document.createElement('option');
+        option.value = item.value;
+        option.textContent = item.label;
+        paymentMethod.appendChild(option);
+      });
+
+      paymentMethod.disabled = state.type === 'VIP';
+      paymentMethod.value = options.some(item => item.value === currentValue) ? currentValue : options[0].value;
+    }
+
     function evaluateAvailability(){
-      const eventKey = state.type === 'BONO' ? 'Bono 3' : state.eventName;
+      const eventKey = state.type === 'BONO' ? 'Bono 2 días' : state.eventName;
       const cfg = EVENT_CONFIG[eventKey] || EVENT_CONFIG[state.eventName];
       const used = getCurrentCounters(eventKey);
       const quantity = Number(state.qty || 0);
@@ -1427,65 +1482,84 @@
       state.type = ticketType.value;
       state.qty = Math.max(1, Number(qty.value || 1));
       qty.value = state.qty;
+
+      const cfg = EVENT_CONFIG[state.eventName];
+      const used = getCurrentCounters(state.eventName);
+      const onlineFull = Number.isFinite(cfg.onlinePublicLimit) && used.bizumPublic >= cfg.onlinePublicLimit;
+      const cashFull = Number.isFinite(cfg.cashPublicLimit) && used.cashPublic >= cfg.cashPublicLimit;
+
+      renderPaymentOptions();
       state.paymentMethod = paymentMethod.value;
       state.unit = getUnitPrice(state.eventName, state.type, state.paymentMethod);
       state.total = state.qty * state.unit;
 
-      const cfg = EVENT_CONFIG[state.eventName];
-      const used = getCurrentCounters(state.eventName);
-
-      eventInfo.textContent = state.eventName === '13 de junio'
-        ? 'Reserva por taquilla con descuento de 2€ en la entrada por persona. Pago en el evento solo en efectivo.'
-        : 'Compra por Bizum o reserva por la web para pagar en taquilla. Pago en el evento solo en efectivo.';
-
-      const onlineFull = Number.isFinite(cfg.onlinePublicLimit) && used.bizumPublic >= cfg.onlinePublicLimit;
-      const cashFull = Number.isFinite(cfg.cashPublicLimit) && used.cashPublic >= cfg.cashPublicLimit;
+      if(state.eventName === '16 de mayo'){
+        eventInfo.textContent = onlineFull
+          ? 'Las 1000 entradas online del 16 de mayo ya se han agotado. Ahora solo se permite reservar hasta 1500 entradas para pagar en taquilla y en efectivo.'
+          : 'De momento solo aparece la compra online. Cuando se agoten las 1000 entradas online, se activará la reserva de hasta 1500 entradas para taquilla y efectivo.';
+      }else if(state.eventName === '13 de junio'){
+        eventInfo.textContent = 'El 13 de junio solo permite compra online. No hay reserva para taquilla.';
+      }else{
+        eventInfo.textContent = 'Evento cancelado por precipitaciones y cambios de temporal.';
+      }
 
       if(state.type === 'PUBLICO'){
         entryInfo.textContent = state.eventName === '13 de junio'
-          ? 'Entrada general por persona. En taquilla para esta fecha se queda en 10€.'
+          ? 'Entrada general por persona. Solo disponible online para esta fecha.'
           : 'Entrada general por persona.';
       }else if(state.type === 'LANZADAS'){
         entryInfo.textContent = 'Acceso para coche que participa en lanzadas.';
       }else if(state.type === 'BONO'){
-        entryInfo.textContent = 'Incluye 2 de mayo, 16 de mayo y 13 de junio.';
+        entryInfo.textContent = 'Incluye 16 de mayo y 13 de junio.';
       }else{
         entryInfo.textContent = 'La entrada VIP se gestiona por teléfono.';
       }
 
-      paymentInfo.textContent = state.paymentMethod === 'TAQUILLA'
-        ? (state.eventName === '13 de junio' && state.type === 'PUBLICO'
-            ? 'Reserva por la web. En 13 de junio la entrada por persona en taquilla lleva 2€ de descuento. Pago en el evento solo en efectivo.'
-            : 'Reserva por la web. El pago en el evento es solo en efectivo.')
-        : 'Después de pulsar el botón se abrirá la pantalla de pago por Bizum.';
+      if(!state.paymentMethod){
+        paymentInfo.textContent = state.eventName === '2 de mayo'
+          ? 'Evento cancelado por precipitaciones y cambios de temporal.'
+          : state.eventName === '13 de junio'
+          ? 'La venta online de esta fecha está agotada.'
+          : 'Ahora mismo no hay un método de pago disponible para esta selección.';
+      }else if(state.paymentMethod === 'TAQUILLA'){
+        paymentInfo.textContent = 'Reserva por la web. El pago en el evento es solo en efectivo.';
+      }else{
+        paymentInfo.textContent = 'Después de pulsar el botón se abrirá la pantalla de pago por Bizum.';
+      }
 
       vipContactCard.style.display = state.type === 'VIP' ? 'block' : 'none';
-      paymentMethod.disabled = state.type === 'VIP';
+      paymentMethod.disabled = state.type === 'VIP' || !state.paymentMethod;
 
       if(state.type === 'VIP'){
         btnCheckout.textContent = 'Contactar por teléfono';
       }else if(state.paymentMethod === 'TAQUILLA'){
         btnCheckout.textContent = 'Reservar y pagar en taquilla';
-      }else{
+      }else if(state.paymentMethod === 'BIZUM'){
         btnCheckout.textContent = 'Ir a pagar con Bizum';
+      }else{
+        btnCheckout.textContent = 'No disponible';
       }
 
-      if(state.type !== 'VIP' && state.paymentMethod === 'BIZUM' && onlineFull){
-        paymentMethod.value = 'TAQUILLA';
-        state.paymentMethod = 'TAQUILLA';
-        showMessage('Las entradas online están agotadas para esa fecha. Solo queda la reserva para pagar en taquilla.', 'warn');
+      if(state.type !== 'VIP' && !state.paymentMethod){
+        showMessage(state.eventName === '2 de mayo'
+          ? 'El evento del 2 de mayo está cancelado por precipitaciones y cambios de temporal.'
+          : state.eventName === '13 de junio'
+          ? 'Las entradas online del 13 de junio están agotadas.'
+          : 'No queda cupo disponible para esta fecha.', 'warn');
+      } else if(state.type !== 'VIP' && state.eventName === '16 de mayo' && onlineFull && !cashFull){
+        showMessage('Las 1000 entradas online del 16 de mayo ya se han agotado. Solo queda la reserva para taquilla.', 'warn');
       } else if(state.type !== 'VIP' && state.paymentMethod === 'TAQUILLA' && cashFull){
         showMessage('No queda cupo para la reserva de taquilla en esa fecha.', 'warn');
       } else if(state.type !== 'VIP'){
         clearMessage();
       }
 
-      const orderEventName = state.type === 'BONO' ? 'Bono 3' : state.eventName;
+      const orderEventName = state.type === 'BONO' ? 'Bono 2 días' : state.eventName;
       summaryBox.innerHTML = `
         <strong>Evento:</strong> ${orderEventName}<br>
         <strong>Entrada:</strong> ${TYPE_NAMES[state.type]}<br>
         <strong>Cantidad:</strong> ${state.qty}<br>
-        <strong>Método:</strong> ${getMethodLabel()}<br>
+        <strong>Método:</strong> ${state.paymentMethod ? getMethodLabel() : 'No disponible'}<br>
         <strong>Total:</strong> ${euro(state.total)}
       `;
     }
@@ -1506,7 +1580,9 @@
     }
 
     function validateForm(){
+      if(state.eventName === '2 de mayo' && state.type !== 'BONO') return {ok:false, message:'El evento del 2 de mayo está cancelado por precipitaciones y cambios de temporal.'};
       if(state.type === 'VIP') return {ok:false, message:'La entrada VIP se gestiona por teléfono.'};
+      if(!state.paymentMethod) return {ok:false, message:'Ahora mismo no hay un método de pago disponible para esta selección.'};
       if(!nameInput.value.trim()) return {ok:false, message:'Introduce tu nombre y apellidos.'};
       if(!dniInput.value.trim()) return {ok:false, message:'Introduce tu DNI.'};
       if(!emailInput.value.trim()) return {ok:false, message:'Introduce tu correo electrónico.'};
@@ -1531,7 +1607,7 @@
         <strong>Nombre:</strong> ${nameInput.value.trim()}<br>
         <strong>DNI:</strong> ${dniInput.value.trim()}<br>
         <strong>Email:</strong> ${emailInput.value.trim()}<br>
-        <strong>Evento:</strong> ${state.type === 'BONO' ? 'Bono 3' : state.eventName}<br>
+        <strong>Evento:</strong> ${state.type === 'BONO' ? 'Bono 2 días' : state.eventName}<br>
         <strong>Entrada:</strong> ${TYPE_NAMES[state.type]}<br>
         <strong>Cantidad:</strong> ${state.qty}<br>
         <strong>Método:</strong> ${getMethodLabel()}<br>
@@ -1559,7 +1635,7 @@
       confirmOrderBtn.textContent = 'Enviando...';
 
       const payload = {
-        event: state.type === 'BONO' ? 'Bono 3' : state.eventName,
+        event: state.type === 'BONO' ? 'Bono 2 días' : state.eventName,
         sourceEvent: state.eventName,
         name: nameInput.value.trim(),
         dni: dniInput.value.trim(),
@@ -1610,6 +1686,10 @@
     btnCheckout.addEventListener('click', () => {
       if(state.type === 'VIP'){
         window.open(`https://wa.me/${PHONE_NUMBER}`, '_blank', 'noopener');
+        return;
+      }
+      if(!state.paymentMethod){
+        showMessage('Ahora mismo no hay un método de pago disponible para esta selección.', 'warn');
         return;
       }
       openPayOverlay();
